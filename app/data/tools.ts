@@ -1,5 +1,5 @@
 // app/data/tools.ts
-import { Calculator, Keyboard, MousePointerClick,  Globe, Heart } from "lucide-react"
+import { Calculator, Keyboard, MousePointerClick, Globe, Heart } from "lucide-react"
 
 export interface Tool {
   href: string
