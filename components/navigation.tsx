@@ -29,23 +29,23 @@ export function Navigation() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/10 bg-background/40 backdrop-blur-md shadow-lg">
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-background/40 backdrop-blur-md shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-lg transition-all duration-300"
           >
             Toolkit
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="hover:text-primary transition-colors font-medium">
+            <Link href="/" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
               Home
             </Link>
-            <Link href="/about" className="hover:text-primary transition-colors font-medium">
+            <Link href="/about" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
               About
             </Link>
 
@@ -55,48 +55,50 @@ export function Navigation() {
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
             >
-              <button className="flex items-center gap-1 hover:text-primary transition-colors font-medium">
-                Tools <ChevronDown className="h-4 w-4" />
+              <button className="flex items-center gap-1 hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
+                Tools <ChevronDown className="h-4 w-4 transition-transform duration-300" style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
 
-              {dropdownOpen && (
-                <div
-                  className="absolute top-12 left-0 w-[480px] 
-                             bg-gradient-to-r from-primary to-accent 
-                             text-white shadow-2xl rounded-xl 
-                             border border-white/10 
-                             p-4 grid grid-cols-2 gap-3"
-                >
-                  {tools.map((tool) => {
-                    const Icon = tool.icon
-                    return (
-                      <Link
-                        key={tool.href}
-                        href={tool.href}
-                        className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/20 transition-all duration-200"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="font-medium">{tool.name}</div>
-                          <div className="text-xs opacity-80">{tool.desc}</div>
-                        </div>
-                      </Link>
-                    )
-                  })}
-                </div>
-              )}
+              {/* Animated Dropdown */}
+              <div
+                className={`absolute top-12 left-0 w-[480px] 
+                  bg-gradient-to-r from-primary to-accent 
+                  text-white shadow-2xl rounded-xl 
+                  border border-white/10 
+                  p-4 grid grid-cols-2 gap-3
+                  transition-all duration-300
+                  ${dropdownOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
+                `}
+              >
+                {tools.map((tool) => {
+                  const Icon = tool.icon
+                  return (
+                    <Link
+                      key={tool.href}
+                      href={tool.href}
+                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/20 transition-all duration-200 shadow hover:shadow-lg"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center shadow">
+                        <Icon className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-medium">{tool.name}</div>
+                        <div className="text-xs opacity-80">{tool.desc}</div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
 
-            <Link href="/contact" className="hover:text-primary transition-colors font-medium">
+            <Link href="/contact" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
               Contact
             </Link>
           </div>
 
           {/* Request Button */}
           <div className="hidden lg:flex">
-            <Button className="rounded-xl shadow-md shadow-primary/30 bg-gradient-to-r from-primary to-accent text-white hover:scale-105 transition-transform">
+            <Button className="rounded-xl shadow-md shadow-primary/30 bg-gradient-to-r from-primary to-accent text-white hover:scale-105 transition-transform duration-200 hover:shadow-xl">
               Request Custom Tool
             </Button>
           </div>
@@ -108,6 +110,7 @@ export function Navigation() {
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
+              className="transition-all duration-200"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -115,42 +118,44 @@ export function Navigation() {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <div className="lg:hidden mt-2 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 rounded-xl shadow-md border border-white/10">
-            <Link href="/" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-              Home
-            </Link>
-            <Link href="/about" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-              About
-            </Link>
-            <details className="rounded-lg">
-              <summary className="px-2 py-2 cursor-pointer hover:text-gray-200">
-                Tools
-              </summary>
-              <div className="pl-2 mt-2 space-y-2">
-                {tools.map((tool) => {
-                  const Icon = tool.icon
-                  return (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-                    >
-                      <Icon className="h-4 w-4 text-white" />
-                      {tool.name}
-                    </Link>
-                  )
-                })}
-              </div>
-            </details>
-            <Link href="/contact" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-              Contact
-            </Link>
-            <Button className="w-full mt-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white shadow-md">
-              Request Custom Tool
-            </Button>
-          </div>
-        )}
+        <div
+          className={`lg:hidden mt-2 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 rounded-xl shadow-md border border-white/10 transition-all duration-300 ${
+            isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+          }`}
+        >
+          <Link href="/" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
+            Home
+          </Link>
+          <Link href="/about" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
+            About
+          </Link>
+          <details className="rounded-lg">
+            <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
+              Tools
+            </summary>
+            <div className="pl-2 mt-2 space-y-2">
+              {tools.map((tool) => {
+                const Icon = tool.icon
+                return (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow"
+                  >
+                    <Icon className="h-4 w-4 text-white" />
+                    {tool.name}
+                  </Link>
+                )
+              })}
+            </div>
+          </details>
+          <Link href="/contact" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
+            Contact
+          </Link>
+          <Button className="w-full mt-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white shadow-md hover:scale-105 transition-transform duration-200 hover:shadow-xl">
+            Request Custom Tool
+          </Button>
+        </div>
       </div>
     </nav>
   )
