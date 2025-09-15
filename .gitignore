@@ -25,3 +25,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Dist / build folders
+dist/
+
+# Cache
+.cache/
+*.pack.gz

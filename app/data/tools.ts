@@ -1,4 +1,5 @@
-import { Calculator, Keyboard, MousePointerClick, BarChart3 } from "lucide-react"
+// app/data/tools.ts
+import { Calculator, Keyboard, MousePointerClick,  Globe, Heart } from "lucide-react"
 
 export interface Tool {
   href: string
@@ -21,7 +22,14 @@ export const tools: Tool[] = [
     name: "Japanese Name Generator",
     description: "Generate authentic Japanese names instantly.",
     category: "Generator",
-    icon: Keyboard,
+    icon: Globe,
+  },
+  {
+    href: "/tools/growagarden-calculator",
+    name: "GrowAGarden Calculator",
+    description: "Calculate growth metrics for your garden with ease.",
+    category: "Calculator",
+    icon: Calculator,
   },
   {
     href: "/tools/gpa-calculator",
@@ -35,7 +43,13 @@ export const tools: Tool[] = [
     name: "BMI Calculator",
     description: "Check your Body Mass Index for a healthier lifestyle.",
     category: "Health",
-    icon: BarChart3,
+    icon: Heart,
   },
-  // You can add more tools here...
+  {
+    href: "/tools/typing-speed-checker",
+    name: "Typing Speed Checker",
+    description: "Test your typing speed and accuracy instantly.",
+    category: "Testing",
+    icon: Keyboard,
+  },
 ]
