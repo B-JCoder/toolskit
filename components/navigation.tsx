@@ -117,45 +117,49 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`lg:hidden mt-2 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 rounded-xl shadow-md border border-white/10 transition-all duration-300 ${
-            isOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <Link href="/" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
-            Home
+      {/* Mobile Menu */}
+<div
+  className={`lg:hidden absolute left-0 right-0 top-16 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 shadow-md border-t border-white/10 transition-all duration-300 ${
+    isOpen
+      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+  }`}
+>
+  <Link href="/" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
+    Home
+  </Link>
+  <Link href="/about" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
+    About
+  </Link>
+
+  <details className="rounded-lg">
+    <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
+      Tools
+    </summary>
+    <div className="pl-2 mt-2 space-y-2">
+      {tools.map((tool) => {
+        const Icon = tool.icon
+        return (
+          <Link
+            key={tool.href}
+            href={tool.href}
+            className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            <Icon className="h-4 w-4 text-white" />
+            {tool.name}
           </Link>
-          <Link href="/about" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
-            About
-          </Link>
-          <details className="rounded-lg">
-            <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
-              Tools
-            </summary>
-            <div className="pl-2 mt-2 space-y-2">
-              {tools.map((tool) => {
-                const Icon = tool.icon
-                return (
-                  <Link
-                    key={tool.href}
-                    href={tool.href}
-                    className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow"
-                  >
-                    <Icon className="h-4 w-4 text-white" />
-                    {tool.name}
-                  </Link>
-                )
-              })}
-            </div>
-          </details>
-          <Link href="/contact" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors hover:scale-105 duration-200 shadow">
-            Contact
-          </Link>
-          <Button className="w-full mt-3 rounded-xl bg-gradient-to-r from-primary to-accent text-white shadow-md hover:scale-105 transition-transform duration-200 hover:shadow-xl">
-            Request Custom Tool
-          </Button>
-        </div>
+        )
+      })}
+    </div>
+  </details>
+
+  <Link href="/contact" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
+    Contact
+  </Link>
+  <Button className="w-full mt-3 rounded-lg bg-gradient-to-r from-primary to-accent text-white shadow-md">
+    Request Custom Tool
+  </Button>
+</div>
       </div>
     </nav>
   )

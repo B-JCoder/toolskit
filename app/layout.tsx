@@ -8,7 +8,7 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Suspense } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
-
+import Preloader from "@/components/Preloader"
 export const metadata: Metadata = {
   title: {
     default: "Toolkit — Handy Web Tools",
@@ -66,6 +66,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Suspense fallback={<div>Loading...</div>}>
             <Navigation />
+             <Preloader />
             <main className="flex-1">{children}</main>
             <Footer />
           </Suspense>

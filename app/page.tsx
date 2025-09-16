@@ -4,7 +4,7 @@ import { Calculator, Heart, Keyboard,  } from "lucide-react"
 import HeroSection from "@/components/Hero"
 import ToolsSection from "@/components/ToolsSection"
 
-
+import { FeaturesSection } from "@/components/FeaturesSection"
 
 export default function HomePage() {
   return (
@@ -14,7 +14,7 @@ export default function HomePage() {
 
       {/* Tools Grid */}
      <ToolsSection />
-
+<FeaturesSection />
       {/* Features Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-4xl mx-auto text-center">
@@ -52,6 +52,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+       
     </div>
   )
 }

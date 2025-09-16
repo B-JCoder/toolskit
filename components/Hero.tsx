@@ -16,7 +16,7 @@ export default function HeroSection() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Floating animation config (corrected)
+  // Floating animation config
   const floatTransition = {
     duration: 3,
     repeat: Infinity,
@@ -25,7 +25,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black pt-16">
       {/* Background Video */}
       <video
         autoPlay
@@ -45,17 +45,17 @@ export default function HeroSection() {
 
       {/* Mouse Tracking Glow */}
       <div
-        className="absolute w-[600px] h-[600px] bg-primary/20 rounded-full blur-3xl pointer-events-none transition-transform duration-200"
+        className="absolute w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-primary/20 rounded-full blur-3xl pointer-events-none transition-transform duration-200"
         style={{
-          transform: `translate(${mousePosition.x - 300}px, ${
-            mousePosition.y - 300
+          transform: `translate(${mousePosition.x - 200}px, ${
+            mousePosition.y - 200
           }px)`,
         }}
       />
 
-      {/* Floating Icons */}
+      {/* Floating Icons (hidden on mobile for better space) */}
       <motion.div
-        className="absolute top-20 left-10 text-white/70"
+        className="hidden sm:block absolute top-20 left-10 text-white/70"
         animate={{ y: [0, 30, 0] }}
         transition={floatTransition}
       >
@@ -63,7 +63,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-28 right-16 text-white/70"
+        className="hidden sm:block absolute bottom-28 right-16 text-white/70"
         animate={{ y: [0, -25, 0] }}
         transition={floatTransition}
       >
@@ -71,7 +71,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="absolute top-40 right-1/3 text-white/70"
+        className="hidden sm:block absolute top-40 right-1/3 text-white/70"
         animate={{ y: [0, 40, 0] }}
         transition={floatTransition}
       >
@@ -79,7 +79,7 @@ export default function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-16 left-1/4 text-white/70"
+        className="hidden sm:block absolute bottom-16 left-1/4 text-white/70"
         animate={{ y: [0, -35, 0] }}
         transition={floatTransition}
       >
@@ -89,7 +89,7 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
         <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 drop-shadow-lg"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -98,7 +98,7 @@ export default function HeroSection() {
         </motion.h1>
 
         <motion.p
-          className="text-base sm:text-lg lg:text-xl text-gray-200 mb-8 max-w-2xl mx-auto"
+          className="text-sm sm:text-lg lg:text-xl text-gray-200 mb-8 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
