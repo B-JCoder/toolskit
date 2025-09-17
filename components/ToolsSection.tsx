@@ -14,7 +14,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: easeInOut, // ✅ use function instead of string
+      ease: easeInOut, 
     },
   },
 }

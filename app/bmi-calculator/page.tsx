@@ -38,17 +38,18 @@ export default function BMICalculatorPage() {
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: "BMI Calculator", href: "/bmi-calculator" }]} />
-
+ 
         <ToolPageLayout
           icon={Heart}
           title="BMI Calculator"
           description="Calculate your Body Mass Index and get insights about your health metrics."
         >
-          <div className="mb-8 prose prose-gray dark:prose-invert max-w-none">
+          <BMICalculator />
+          <div className="mb-10 mt-10 prose prose-gray dark:prose-invert max-w-none">
             <h2 className="text-2xl font-semibold mb-4">What is BMI?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
               Body Mass Index (BMI) is a widely used screening tool that measures body fat based on height and weight.
-              It provides a quick assessment of whether you're underweight, normal weight, overweight, or obese.
+              It provides a quick assessment of whether you are underweight, normal weight, overweight, or obese.
             </p>
 
             <h3 className="text-xl font-semibold mb-3">BMI Categories:</h3>
@@ -76,7 +77,7 @@ export default function BMICalculatorPage() {
             </ol>
           </div>
 
-          <BMICalculator />
+         
         </ToolPageLayout>
       </div>
     </>
