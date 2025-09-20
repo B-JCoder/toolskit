@@ -1,9 +1,12 @@
+
 import type { Metadata } from "next"
 import { Heart } from "lucide-react"
 import { ToolPageLayout } from "@/components/tool-page-layout"
 import { BMICalculator } from "@/components/bmi-calculator/bmi-calculator"
 import { StructuredData } from "@/components/seo/structured-data"
 import { Breadcrumbs } from "@/components/seo/breadcrumbs"
+import { Pageshero } from "@/components/Pageshero"
+
 
 export const metadata: Metadata = {
   title: "BMI Calculator - Calculate Your Body Mass Index",
@@ -28,6 +31,7 @@ export const metadata: Metadata = {
 export default function BMICalculatorPage() {
   return (
     <>
+    <Pageshero />
       <StructuredData
         type="WebApplication"
         name="BMI Calculator"
