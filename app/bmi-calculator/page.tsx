@@ -2,7 +2,7 @@
 import type { Metadata } from "next"
 import { Heart } from "lucide-react"
 import { ToolPageLayout } from "@/components/tool-page-layout"
-import { BMICalculator } from "@/components/bmi-calculator/bmi-calculator"
+import { BMICalculator } from "@/components/bmi-calculator/BMICalculator"
 import { StructuredData } from "@/components/seo/structured-data"
 import { Breadcrumbs } from "@/components/seo/breadcrumbs"
 import { Pageshero } from "@/components/Pageshero"

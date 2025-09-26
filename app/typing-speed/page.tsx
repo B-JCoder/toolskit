@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Keyboard } from "lucide-react"
 import { ToolPageLayout } from "@/components/tool-page-layout"
-import { TypingSpeed } from "@/components/typing-speed/typing-speed"
+import  TypingSpeed  from "@/components/typing-speed/typing-speed"
 import { StructuredData } from "@/components/seo/structured-data"
 import { Breadcrumbs } from "@/components/seo/breadcrumbs"
 
@@ -47,8 +47,8 @@ export default function TypingSpeedPage() {
           <div className="mb-8 prose prose-gray dark:prose-invert max-w-none">
             <h2 className="text-2xl font-semibold mb-4">What is Typing Speed?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Typing speed is measured in Words Per Minute (WPM) and indicates how fast you can type accurately. It's an
-              essential skill for productivity in today's digital world.
+              Typing speed is measured in Words Per Minute (WPM) and indicates how fast you can type accurately. It&apos;s an
+              essential skill for productivity in today&apos;s digital world.
             </p>
 
             <h3 className="text-xl font-semibold mb-3">Typing Speed Levels:</h3>
@@ -69,7 +69,7 @@ export default function TypingSpeedPage() {
 
             <h3 className="text-xl font-semibold mb-3 mt-6">How to Use the Typing Test:</h3>
             <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-              <li>Click "Start Test" to begin the typing challenge</li>
+              <li>Click &quot;Start Test&quot; to begin the typing challenge</li>
               <li>Type the displayed text as accurately as possible</li>
               <li>Focus on accuracy first, then speed</li>
               <li>View your WPM, accuracy, and detailed statistics</li>

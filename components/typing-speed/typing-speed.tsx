@@ -1,226 +1,336 @@
-"use client"
+"use client";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Zap, Play, Pause, RotateCcw, Clock, Target, CheckCircle } from "lucide-react";
 
-import type React from "react"
+const TypingSpeed = () => {
+  const [duration, setDuration] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [userText, setUserText] = useState('');
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [wpm, setWpm] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
+  const [totalChars, setTotalChars] = useState(0);
+  const [correctChars, setCorrectChars] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Play, Pause } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
-import { ToolCard } from "@/components/tool-card"
-import { StatsGrid } from "@/components/stats-grid"
-import { ResetButton } from "@/components/reset-button"
+  const sampleTexts = [
+    "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the English alphabet and is commonly used for typing practice. It's a great way to test your keyboard skills and improve your typing speed.",
+    "In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat.",
+    "To be or not to be, that is the question. Whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune, or to take arms against a sea of troubles and by opposing end them.",
+    "Space exploration represents humanity's greatest adventure. From the first steps on the moon to the rovers exploring Mars, we continue to push the boundaries of what's possible and expand our understanding of the universe.",
+    "The art of programming is the art of organizing complexity, of mastering multitude and avoiding its bastard chaos as effectively as possible. Good programmers worry about data structures and their relationships."
+  ];
 
-const sampleTexts = [
-  "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet and is commonly used for typing practice. It helps improve finger dexterity and keyboard familiarity.",
-  "Technology has revolutionized the way we communicate, work, and live. From smartphones to artificial intelligence, innovation continues to shape our future in remarkable ways that were once unimaginable.",
-  "Learning to type efficiently is a valuable skill in today's digital world. Practice makes perfect, and with dedication, anyone can improve their typing speed and accuracy significantly over time.",
-  "The art of programming requires patience, logic, and creativity. Developers solve complex problems by breaking them down into smaller, manageable pieces and implementing elegant solutions.",
-  "Climate change is one of the most pressing challenges of our time. It requires global cooperation, innovative solutions, and immediate action to protect our planet for future generations.",
-]
+  const currentText = sampleTexts[currentTextIndex];
 
-export function TypingSpeed() {
-  const [sampleText, setSampleText] = useState("")
-  const [userInput, setUserInput] = useState("")
-  const [timeLeft, setTimeLeft] = useState(60)
-  const [isActive, setIsActive] = useState(false)
-  const [isFinished, setIsFinished] = useState(false)
-  const [wpm, setWpm] = useState(0)
-  const [accuracy, setAccuracy] = useState(100)
-  const [startTime, setStartTime] = useState<number | null>(null)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  
+  const calculateStats = useCallback(() => {
+    const wordsTyped = userText.trim().split(/\s+/).length;
+    const timeElapsed = (duration - timeLeft) / 60; // in minutes
+    const calculatedWpm = timeElapsed > 0 ? Math.round(wordsTyped / timeElapsed) : 0;
+    
+    let correct = 0;
+    const total = userText.length;
+    
+    for (let i = 0; i < Math.min(userText.length, currentText.length); i++) {
+      if (userText[i] === currentText[i]) {
+        correct++;
+      }
+    }
+    
+    const calculatedAccuracy = total > 0 ? Math.round((correct / total) * 100) : 100;
+    
+    setWpm(calculatedWpm);
+    setAccuracy(calculatedAccuracy);
+    setTotalChars(total);
+    setCorrectChars(correct);
+  }, [userText, duration, timeLeft, currentText]);
 
-  useEffect(() => {
-    // Set initial sample text
-    setSampleText(sampleTexts[0])
-  }, [])
+  // Removed duplicate endTest declaration to fix redeclaration error
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const endTest = () => {
+    setIsActive(false);
+    calculateStats();
+  };
 
   useEffect(() => {
     if (isActive && timeLeft > 0) {
       intervalRef.current = setInterval(() => {
-        setTimeLeft((time) => time - 1)
-      }, 1000)
-    } else if (timeLeft === 0 && isActive) {
-      finishTest()
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            endTest();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     }
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
+    };
+  }, [endTest, isActive, timeLeft]);
+
+  useEffect(() => {
+    if (hasStarted) {
+      calculateStats();
     }
-  }, [isActive, timeLeft])
+  }, [userText, timeLeft, hasStarted, calculateStats]);
 
   const startTest = () => {
-    setIsActive(true)
-    setIsFinished(false)
-    setUserInput("")
-    setTimeLeft(60)
-    setStartTime(Date.now())
-    setWpm(0)
-    setAccuracy(100)
-    // Focus on textarea
-    setTimeout(() => {
-      textareaRef.current?.focus()
-    }, 100)
-  }
+    setIsActive(true);
+    setHasStarted(true);
+    setTimeLeft(duration);
+    setUserText('');
+    setWpm(0);
+    setAccuracy(100);
+    setTotalChars(0);
+    setCorrectChars(0);
+  };
 
   const pauseTest = () => {
-    setIsActive(false)
-  }
+    setIsActive(false);
+  };
 
   const resumeTest = () => {
-    setIsActive(true)
-  }
-
-  const finishTest = () => {
-    setIsActive(false)
-    setIsFinished(true)
-    calculateResults()
-  }
-
-  const calculateResults = () => {
-    if (!startTime) return
-
-    const timeElapsed = (Date.now() - startTime) / 1000 / 60 // in minutes
-    const wordsTyped = userInput.trim().split(/\s+/).length
-    const calculatedWpm = Math.round(wordsTyped / timeElapsed)
-
-    // Calculate accuracy
-    let correctChars = 0
-    const minLength = Math.min(userInput.length, sampleText.length)
-
-    for (let i = 0; i < minLength; i++) {
-      if (userInput[i] === sampleText[i]) {
-        correctChars++
-      }
+    if (timeLeft > 0) {
+      setIsActive(true);
     }
-
-    const calculatedAccuracy = minLength > 0 ? Math.round((correctChars / minLength) * 100) : 100
-
-    setWpm(calculatedWpm)
-    setAccuracy(calculatedAccuracy)
-  }
+  };
 
   const resetTest = () => {
-    setIsActive(false)
-    setIsFinished(false)
-    setUserInput("")
-    setTimeLeft(60)
-    setStartTime(null)
-    setWpm(0)
-    setAccuracy(100)
-    // Generate new sample text
-    const randomIndex = Math.floor(Math.random() * sampleTexts.length)
-    setSampleText(sampleTexts[randomIndex])
-  }
+    setIsActive(false);
+    setHasStarted(false);
+    setTimeLeft(0);
+    setUserText('');
+    setWpm(0);
+    setAccuracy(100);
+    setTotalChars(0);
+    setCorrectChars(0);
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (!isActive && !isFinished) {
-      startTest()
-    }
-    setUserInput(e.target.value)
-  }
+  const changeText = () => {
+    setCurrentTextIndex((prev) => (prev + 1) % sampleTexts.length);
+    resetTest();
+  };
 
   const getCharacterClass = (index: number) => {
-    if (index >= userInput.length) return "text-muted-foreground"
-    if (userInput[index] === sampleText[index]) return "text-green-600 bg-green-100 dark:bg-green-900/20"
-    return "text-red-600 bg-red-100 dark:bg-red-900/20"
-  }
-
-  const stats = [
-    { value: `${timeLeft}s`, label: "Time Left" },
-    { value: wpm, label: "WPM" },
-    { value: `${accuracy}%`, label: "Accuracy" },
-  ]
+    if (index >= userText.length) {
+      return 'text-muted-foreground';
+    }
+    return userText[index] === currentText[index] 
+      ? 'text-green-400 bg-green-400/10' 
+      : 'text-red-400 bg-red-400/10';
+  };
 
   return (
-    <ToolCard
-      title="Typing Speed Checker Tool"
-      description="Measure your words per minute (WPM) and accuracy to track your typing improvement."
-      className="max-w-4xl mx-auto"
-    >
-      <div className="space-y-6">
-        {/* Stats Display */}
-        <StatsGrid stats={stats} columns={3} />
-
-        {/* Sample Text Display */}
-        <div className="p-4 rounded-lg bg-muted border">
-          <h3 className="text-sm font-medium mb-2">Type the following text:</h3>
-          <div className="text-lg leading-relaxed font-mono">
-            {sampleText.split("").map((char, index) => (
-              <span key={index} className={getCharacterClass(index)}>
-                {char}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Input Area */}
-        <div className="space-y-2">
-          <label htmlFor="typing-input" className="text-sm font-medium">
-            Start typing here:
-          </label>
-          <Textarea
-            id="typing-input"
-            ref={textareaRef}
-            value={userInput}
-            onChange={handleInputChange}
-            placeholder="Start typing to begin the test..."
-            className="min-h-32 text-lg font-mono"
-            disabled={isFinished}
-          />
-        </div>
-
-        {/* Results */}
-        {isFinished && (
-          <div className="text-center p-6 rounded-lg bg-primary/10 border">
-            <h3 className="text-xl font-bold mb-4">Test Complete!</h3>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <div className="text-2xl font-bold text-primary">{wpm} WPM</div>
-                <div className="text-muted-foreground">Words per minute</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">{accuracy}%</div>
-                <div className="text-muted-foreground">Accuracy</div>
-              </div>
+    <div className="min-h-screen bg-gradient-subtle">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="p-3 bg-primary/10 rounded-lg">
+              <Zap className="w-8 h-8 text-primary" />
             </div>
-            <div className="text-sm text-muted-foreground">
-              You typed {userInput.trim().split(/\s+/).length} words in 60 seconds
-            </div>
+            <h1 className="text-4xl font-bold">Typing Speed Checker</h1>
           </div>
-        )}
-
-        {/* Controls */}
-        <div className="flex gap-2 justify-center">
-          {!isActive && !isFinished && (
-            <Button onClick={startTest} size="lg" className="gap-2">
-              <Play className="h-4 w-4" />
-              Start Test
-            </Button>
-          )}
-          {isActive && (
-            <Button onClick={pauseTest} variant="outline" size="lg" className="gap-2 bg-transparent">
-              <Pause className="h-4 w-4" />
-              Pause
-            </Button>
-          )}
-          {!isActive && !isFinished && userInput && (
-            <Button onClick={resumeTest} size="lg" className="gap-2">
-              <Play className="h-4 w-4" />
-              Resume
-            </Button>
-          )}
-          <ResetButton onClick={resetTest} />
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Test and improve your typing speed with our comprehensive speed test
+          </p>
         </div>
 
-        {/* Instructions */}
-        <div className="text-center text-sm text-muted-foreground">
-          <p>Type the text above as accurately and quickly as possible.</p>
-          <p className="mt-1">The test will automatically start when you begin typing.</p>
+        <div className="grid gap-8">
+          <Card className="bg-gradient-card shadow-card border-border/50">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Test Settings</CardTitle>
+                  <CardDescription>Configure your typing test</CardDescription>
+                </div>
+                <Button
+                  onClick={changeText}
+                  variant="outline"
+                  size="sm"
+                  disabled={isActive}
+                >
+                  New Text
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-4">
+                <Label htmlFor="duration">Duration (seconds):</Label>
+                <Input
+                  id="duration"
+                  type="number"
+                  min="15"
+                  max="300"
+                  value={duration}
+                  onChange={(e) => setDuration(parseInt(e.target.value) || 60)}
+                  disabled={isActive || hasStarted}
+                  className="w-20"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-card shadow-card border-border/50">
+            <CardHeader>
+              <CardTitle>Sample Text</CardTitle>
+              <CardDescription>Type the following text as accurately and quickly as possible</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-muted/20 rounded-lg font-mono text-lg leading-relaxed">
+                {currentText.split('').map((char, index) => (
+                  <span key={index} className={getCharacterClass(index)}>
+                    {char}
+                  </span>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-card shadow-card border-border/50">
+            <CardHeader>
+              <CardTitle>Type Here</CardTitle>
+              <CardDescription>
+                {!hasStarted ? "Click start and begin typing" : 
+                 isActive ? "Keep typing!" : 
+                 timeLeft === 0 ? "Test completed!" : "Test paused"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <Textarea
+                  value={userText}
+                  onChange={(e) => setUserText(e.target.value)}
+                  placeholder="Start typing here..."
+                  disabled={!isActive}
+                  className="min-h-32 font-mono text-lg"
+                />
+                
+                <div className="flex justify-center gap-4">
+                  {!hasStarted && (
+                    <Button
+                      onClick={startTest}
+                      className="bg-primary hover:bg-primary-dark shadow-glow"
+                    >
+                      <Play className="w-4 h-4 mr-2" />
+                      Start Test
+                    </Button>
+                  )}
+                  
+                  {hasStarted && timeLeft > 0 && (
+                    <>
+                      {isActive ? (
+                        <Button onClick={pauseTest} variant="outline">
+                          <Pause className="w-4 h-4 mr-2" />
+                          Pause
+                        </Button>
+                      ) : (
+                        <Button onClick={resumeTest} className="bg-primary hover:bg-primary-dark">
+                          <Play className="w-4 h-4 mr-2" />
+                          Resume
+                        </Button>
+                      )}
+                    </>
+                  )}
+                  
+                  {hasStarted && (
+                    <Button onClick={resetTest} variant="outline">
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      Reset
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-card shadow-card border-border/50">
+            <CardHeader>
+              <CardTitle>Live Statistics</CardTitle>
+              <CardDescription>Your current typing performance</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    <Clock className="w-5 h-5 text-primary mr-2" />
+                    <span className="text-sm text-muted-foreground">Time Left</span>
+                  </div>
+                  <div className="text-3xl font-bold text-primary">
+                    {hasStarted ? timeLeft : duration}
+                  </div>
+                  <div className="text-xs text-muted-foreground">seconds</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    <Zap className="w-5 h-5 text-primary mr-2" />
+                    <span className="text-sm text-muted-foreground">WPM</span>
+                  </div>
+                  <div className="text-3xl font-bold text-primary">{wpm}</div>
+                  <div className="text-xs text-muted-foreground">words/min</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    <Target className="w-5 h-5 text-primary mr-2" />
+                    <span className="text-sm text-muted-foreground">Accuracy</span>
+                  </div>
+                  <div className="text-3xl font-bold text-primary">{accuracy}%</div>
+                  <div className="text-xs text-muted-foreground">correct</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                    <span className="text-sm text-muted-foreground">Progress</span>
+                  </div>
+                  <div className="text-3xl font-bold text-primary">{totalChars}</div>
+                  <div className="text-xs text-muted-foreground">characters</div>
+                </div>
+              </div>
+
+              {hasStarted && timeLeft === 0 && (
+                <div className="mt-8 p-6 bg-primary/10 rounded-lg text-center">
+                  <h3 className="text-xl font-bold mb-4">Test Completed! 🎉</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="font-semibold">Final WPM</div>
+                      <div className="text-2xl text-primary">{wpm}</div>
+                    </div>
+                    <div>
+                      <div className="font-semibold">Accuracy</div>
+                      <div className="text-2xl text-primary">{accuracy}%</div>
+                    </div>
+                    <div>
+                      <div className="font-semibold">Characters</div>
+                      <div className="text-2xl text-primary">{correctChars}/{totalChars}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </ToolCard>
-  )
-}
+    </div>
+  );
+};
+
+export default TypingSpeed;
