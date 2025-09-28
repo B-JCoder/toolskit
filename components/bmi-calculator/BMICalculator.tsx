@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { HealthRecommendations } from "./HealthRecommendations";
 import { BMIChart } from "./BMIChart";
 import { RotateCcw, Calculator, TrendingUp, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface BMIData {
   sex: "male" | "female" | "";
@@ -252,18 +253,23 @@ export const BMICalculator = () => {
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-8 animate-fade-in">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Calculator className="w-8 h-8 text-bmi-primary" />
-            <h1 className="text-4xl font-bold text-foreground">
-              Body Mass Index Calculator
-            </h1>
+          <div className="flex justify-center gap-4 mb-8">
+            {["Sex", "Age", "Height", "Weight"].map((step, index) => (
+              <div
+                key={step}
+                className={`flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all
+      ${
+        progress >= ((index + 1) / 4) * 100
+          ? "bg-bmi-primary text-black shadow-md"
+          : "bg-bmi-hover text-bmi-muted"
+      }
+    `}
+              >
+                {index + 1}. {step}
+              </div>
+            ))}
           </div>
-          <p className="text-bmi-muted text-lg max-w-2xl mx-auto">
-            Get accurate BMI calculations with personalized health insights and
-            recommendations
-          </p>
 
           {/* Progress Bar */}
           <div className="max-w-md mx-auto mt-6">
@@ -276,380 +282,530 @@ export const BMICalculator = () => {
             <Progress value={progress} className="h-2" />
           </div>
         </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="min-h-screen bg-background"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column - Input Form */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                {/* Gender Selection */}
+                <motion.div
+    initial={{ opacity: 0, y: 40, scale: 0.95 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+    whileHover={{
+      scale: 1.02,
+      boxShadow: "0 8px 32px rgba(26,20,165,0.25)",
+    }}
+    className="h-full w-full"
+  >
+                  <Card
+      className={`relative w-full h-full p-6 sm:p-8 bg-gradient-to-br from-bmi-card to-bmi-hover 
+      border-2 rounded-2xl shadow-lg transition-all duration-500 ease-out overflow-hidden
+      ${
+        errors.sex
+          ? "border-bmi-danger ring-2 ring-bmi-danger/40"
+          : "border-bmi-input-border hover:border-bmi-primary hover:shadow-xl"
+      } ${data.sex ? "shadow-xl" : ""}`}
+    >
+                    {/* Gradient Glow Border */}
+                    <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-bmi-primary via-bmi-secondary to-bmi-accent opacity-40 blur-lg pointer-events-none" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - Input Form */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Gender Selection */}
-              <Card
-                className={`p-6 bg-gradient-to-br from-bmi-card to-bmi-hover border-2 transition-all duration-300 animate-scale-in ${
-                  errors.sex
-                    ? "border-bmi-danger"
-                    : "border-bmi-input-border hover:border-bmi-primary"
-                } ${data.sex ? "shadow-lg" : ""}`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-6 h-6 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    1
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    What is your sex?
-                  </h3>
-                </div>
+                    {/* Header */}
+                    <div className="relative flex items-center gap-3 mb-6">
+                      <div className="w-9 h-9 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                        1
+                      </div>
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground tracking-wide drop-shadow-sm">
+                        What is your sex?
+                      </h3>
+                    </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    onClick={() => updateData("sex", "male")}
-                    className={`p-4 rounded-lg border-2 transition-all duration-300 transform hover:scale-105 ${
-                      data.sex === "male"
-                        ? "border-bmi-selected-border bg-bmi-selected shadow-lg"
-                        : "border-bmi-input-border bg-transparent hover:border-bmi-primary hover:bg-bmi-hover"
+                    {/* Options */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+                      {/* Male */}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => updateData("sex", "male")}
+                        className={`group relative p-5 rounded-xl border-2 transition-all duration-300 bg-background/40
+          ${
+            data.sex === "male"
+              ? "border-bmi-selected-border bg-bmi-selected shadow-xl"
+              : "border-bmi-input-border hover:border-bmi-primary hover:bg-bmi-hover/70"
+          }`}
+                      >
+                        <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="https://as1.ftcdn.net/jpg/01/68/80/20/1000_F_168802075_Il6LeUG0NCK4JOELmkC7Ki81g0CiLpxU.webp"
+                            alt="Male"
+                            className="w-full h-full object-cover"
+                            width={64}
+                            height={64}
+                          />
+                        </div>
+                        <span className="font-semibold text-foreground text-base">
+                          Male
+                        </span>
+                      </motion.button>
+
+                      {/* Female */}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.97 }}
+                        onClick={() => updateData("sex", "female")}
+                        className={`group relative p-5 rounded-xl border-2 transition-all duration-300 bg-background/40
+          ${
+            data.sex === "female"
+              ? "border-bmi-selected-border bg-bmi-selected shadow-xl"
+              : "border-bmi-input-border hover:border-bmi-primary hover:bg-bmi-hover/70"
+          }`}
+                      >
+                        <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden shadow-md group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="https://i.pinimg.com/1200x/17/f5/9e/17f59eaf91cdfad2ae723a4805fa60dc.jpg"
+                            alt="Female"
+                            className="w-full h-full object-cover"
+                            width={64}
+                            height={64}
+                          />
+                        </div>
+                        <span className="font-semibold text-foreground text-base">
+                          Female
+                        </span>
+                      </motion.button>
+                    </div>
+
+                    {/* Error */}
+                    {errors.sex && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 mt-4 text-bmi-danger text-sm"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.sex}
+                      </motion.div>
+                    )}
+                  </Card>
+                </motion.div>
+
+                {/* Age Input */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 8px 32px rgba(26,20,165,0.25)",
+                  }}
+                >
+                  <Card
+                    className={`relative w-full max-w-2xl" mx-auto p-6 sm:p-8 bg-gradient-to-br from-bmi-card to-bmi-hover 
+      border-2 rounded-2xl shadow-lg transition-all duration-500 ease-out overflow-hidden
+      ${
+        errors.age
+          ? "border-bmi-danger ring-2 ring-bmi-danger/40"
+          : "border-bmi-input-border hover:border-bmi-primary hover:shadow-xl"
+      } ${data.age ? "shadow-xl" : ""}`}
+                  >
+                    {/* Gradient Glow Border */}
+                    <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-bmi-primary via-bmi-secondary to-bmi-accent opacity-40 blur-lg pointer-events-none" />
+
+                    {/* Header */}
+                    <div className="relative flex items-center gap-3 mb-6">
+                      <div className="w-9 h-9 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                        2
+                      </div>
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground tracking-wide drop-shadow-sm">
+                        How old are you?
+                      </h3>
+                    </div>
+
+                    {/* Input Field */}
+                    <div className="relative">
+                      <motion.div
+                        whileFocus={{ scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Input
+                          type="number"
+                          value={data.age}
+                          onChange={(e) => updateData("age", e.target.value)}
+                          className={`w-full text-2xl font-light text-center border-2 rounded-xl py-3 transition-all duration-300 
+            focus:border-bmi-primary focus:ring-2 focus:ring-bmi-primary/30 
+            ${errors.age ? "border-bmi-danger" : "border-bmi-input-border"}`}
+                          placeholder="25"
+                          min="2"
+                          max="120"
+                        />
+                      </motion.div>
+                      <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-bmi-muted font-medium">
+                        Years
+                      </span>
+                    </div>
+
+                    {/* Error */}
+                    {errors.age && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 mt-4 text-bmi-danger text-sm"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.age}
+                      </motion.div>
+                    )}
+                  </Card>
+                </motion.div>
+
+                {/* Height Input */}
+                {/* Height Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 8px 32px rgba(26,20,165,0.25)",
+                  }}
+                >
+                  <Card
+                    className={`relative w-full max-w-2xl" mx-auto p-6 sm:p-8 bg-gradient-to-br from-bmi-card to-bmi-hover 
+      border-2 rounded-2xl shadow-lg transition-all duration-500 ease-out overflow-hidden
+      ${data.sex === "male" ? "animate-pulse-glow" : ""}
+
+      ${
+        errors.heightFt || errors.heightIn || errors.heightCm
+          ? "border-bmi-danger ring-2 ring-bmi-danger/40"
+          : "border-bmi-input-border hover:border-bmi-primary hover:shadow-xl"
+      } ${
+                      (data.heightFt && data.heightIn) || data.heightCm
+                        ? "shadow-xl"
+                        : ""
                     }`}
                   >
-                    <Image
-                      src="https://as1.ftcdn.net/jpg/01/68/80/20/1000_F_168802075_Il6LeUG0NCK4JOELmkC7Ki81g0CiLpxU.webp"
-                      alt="Male"
-                      className="w-12 h-12 mx-auto mb-2 rounded-full object-cover"
-                      width={48}
-                      height={48}
-                    />
-                    <span className="font-medium text-foreground">Male</span>
-                  </button>
+                    {/* Glow Border */}
+                    <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-bmi-primary via-bmi-secondary to-bmi-accent opacity-40 blur-lg pointer-events-none" />
 
-                  <button
-                    onClick={() => updateData("sex", "female")}
-                    className={`p-4 rounded-lg border-2 transition-all duration-300 transform hover:scale-105 ${
-                      data.sex === "female"
-                        ? "border-bmi-selected-border bg-bmi-selected shadow-lg"
-                        : "border-bmi-input-border bg-transparent hover:border-bmi-primary hover:bg-bmi-hover"
-                    }`}
+                    {/* Header */}
+                    <div className="relative flex items-center gap-3 mb-6">
+                      <div className="w-9 h-9 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                        3
+                      </div>
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground tracking-wide drop-shadow-sm">
+                        How tall are you?
+                      </h3>
+                    </div>
+
+                    {/* Input Fields */}
+                    {data.heightUnit === "ft-in" ? (
+                      <div className="flex gap-4 items-end mb-6">
+                        <div className="flex-1">
+                          <Input
+                            type="number"
+                            value={data.heightFt}
+                            onChange={(e) =>
+                              updateData("heightFt", e.target.value)
+                            }
+                            className={`text-2xl font-light text-center border-2 rounded-xl py-3 transition-all duration-300
+              focus:border-bmi-primary focus:ring-2 focus:ring-bmi-primary/30
+              ${
+                errors.heightFt
+                  ? "border-bmi-danger"
+                  : "border-bmi-input-border"
+              }`}
+                            placeholder="5"
+                            min="3"
+                            max="8"
+                          />
+                          <div className="text-center mt-1 text-bmi-muted">
+                            ft
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <Input
+                            type="number"
+                            value={data.heightIn}
+                            onChange={(e) =>
+                              updateData("heightIn", e.target.value)
+                            }
+                            className={`text-2xl font-light text-center border-2 rounded-xl py-3 transition-all duration-300
+              focus:border-bmi-primary focus:ring-2 focus:ring-bmi-primary/30
+              ${
+                errors.heightIn
+                  ? "border-bmi-danger"
+                  : "border-bmi-input-border"
+              }`}
+                            placeholder="7"
+                            min="0"
+                            max="11"
+                          />
+                          <div className="text-center mt-1 text-bmi-muted">
+                            in
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="mb-6">
+                        <Input
+                          type="number"
+                          value={data.heightCm}
+                          onChange={(e) =>
+                            updateData("heightCm", e.target.value)
+                          }
+                          className={`text-2xl font-light text-center border-2 rounded-xl py-3 transition-all duration-300
+            focus:border-bmi-primary focus:ring-2 focus:ring-bmi-primary/30
+            ${
+              errors.heightCm ? "border-bmi-danger" : "border-bmi-input-border"
+            }`}
+                          placeholder="170"
+                          min="100"
+                          max="250"
+                        />
+                        <div className="text-center mt-1 text-bmi-muted">
+                          cm
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Unit Switch */}
+                    <div className="flex justify-center">
+                      <div className="flex bg-bmi-input-border rounded-full p-1">
+                        <button
+                          onClick={() => updateData("heightUnit", "ft-in")}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105
+            ${
+              data.heightUnit === "ft-in"
+                ? "bg-bmi-primary text-white shadow-md"
+                : "text-bmi-muted hover:text-foreground"
+            }`}
+                        >
+                          ft/in
+                        </button>
+                        <button
+                          onClick={() => updateData("heightUnit", "cm")}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105
+            ${
+              data.heightUnit === "cm"
+                ? "bg-bmi-primary text-white shadow-md"
+                : "text-bmi-muted hover:text-foreground"
+            }`}
+                        >
+                          cm
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Error */}
+                    {(errors.heightFt ||
+                      errors.heightIn ||
+                      errors.heightCm) && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 mt-4 text-bmi-danger text-sm"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.heightFt || errors.heightIn || errors.heightCm}
+                      </motion.div>
+                    )}
+                  </Card>
+                </motion.div>
+
+                {/* Weight Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 8px 32px rgba(26,20,165,0.25)",
+                  }}
+                >
+                  <Card
+                    className={`relative w-full max-w-2xl" mx-auto p-6 sm:p-8 bg-gradient-to-br from-bmi-card to-bmi-hover
+      border-2 rounded-2xl shadow-lg transition-all duration-500 ease-out overflow-hidden
+      ${
+        errors.weight
+          ? "border-bmi-danger ring-2 ring-bmi-danger/40"
+          : "border-bmi-input-border hover:border-bmi-primary hover:shadow-xl"
+      } ${data.weight ? "shadow-xl" : ""}`}
                   >
-                    <Image
-                      src="https://i.pinimg.com/1200x/17/f5/9e/17f59eaf91cdfad2ae723a4805fa60dc.jpg"
-                      alt="Female"
-                      className="w-12 h-12 mx-auto mb-2 rounded-full object-cover"
-                      width={48}
-                      height={48}
-                    />
-                    <span className="font-medium text-foreground">Female</span>
-                  </button>
-                </div>
-                {errors.sex && (
-                  <div className="flex items-center gap-2 mt-3 text-bmi-danger text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.sex}
-                  </div>
-                )}
-              </Card>
+                    {/* Glow Border */}
+                    <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-bmi-primary via-bmi-secondary to-bmi-accent opacity-40 blur-lg pointer-events-none" />
 
-              {/* Age Input */}
-              <Card
-                className={`p-6 bg-gradient-to-br from-bmi-card to-bmi-hover border-2 transition-all duration-300 animate-scale-in ${
-                  errors.age
-                    ? "border-bmi-danger"
-                    : "border-bmi-input-border hover:border-bmi-primary"
-                } ${data.age ? "shadow-lg" : ""}`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-6 h-6 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    2
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    How old are you?
-                  </h3>
-                </div>
+                    {/* Header */}
+                    <div className="relative flex items-center gap-3 mb-6">
+                      <div className="w-9 h-9 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold shadow-md">
+                        4
+                      </div>
+                      <h3 className="text-lg sm:text-2xl font-bold text-foreground tracking-wide drop-shadow-sm">
+                        How much do you weigh?
+                      </h3>
+                    </div>
 
-                <div className="relative">
-                  <Input
-                    type="number"
-                    value={data.age}
-                    onChange={(e) => updateData("age", e.target.value)}
-                    className={`text-2xl font-light text-center border-2 transition-all duration-300 focus:border-bmi-primary ${
-                      errors.age
-                        ? "border-bmi-danger"
-                        : "border-bmi-input-border"
-                    }`}
-                    placeholder="25"
-                    min="2"
-                    max="120"
-                  />
-                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-bmi-muted">
-                    Years
-                  </span>
-                </div>
-                {errors.age && (
-                  <div className="flex items-center gap-2 mt-3 text-bmi-danger text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.age}
-                  </div>
-                )}
-              </Card>
-
-              {/* Height Input */}
-              <Card
-                className={`p-6 bg-gradient-to-br from-bmi-card to-bmi-hover border-2 transition-all duration-300 animate-scale-in ${
-                  errors.heightFt || errors.heightIn || errors.heightCm
-                    ? "border-bmi-danger"
-                    : "border-bmi-input-border hover:border-bmi-primary"
-                } ${
-                  (data.heightFt && data.heightIn) || data.heightCm
-                    ? "shadow-lg"
-                    : ""
-                }`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-6 h-6 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    3
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    How tall are you?
-                  </h3>
-                </div>
-
-                {data.heightUnit === "ft-in" ? (
-                  <div className="flex gap-4 items-end mb-4">
-                    <div className="flex-1">
+                    {/* Input */}
+                    <div className="relative mb-6">
                       <Input
                         type="number"
-                        value={data.heightFt}
-                        onChange={(e) => updateData("heightFt", e.target.value)}
-                        className={`text-2xl font-light text-center border-2 transition-all duration-300 focus:border-bmi-primary ${
-                          errors.heightFt
-                            ? "border-bmi-danger"
-                            : "border-bmi-input-border"
-                        }`}
-                        placeholder="5"
-                        min="3"
-                        max="8"
+                        value={data.weight}
+                        onChange={(e) => updateData("weight", e.target.value)}
+                        className={`w-full text-2xl font-light text-center border-2 rounded-xl py-3 transition-all duration-300
+          focus:border-bmi-primary focus:ring-2 focus:ring-bmi-primary/30
+          ${errors.weight ? "border-bmi-danger" : "border-bmi-input-border"}`}
+                        placeholder={data.weightUnit === "kg" ? "70" : "154"}
+                        min={data.weightUnit === "kg" ? "10" : "22"}
+                        max={data.weightUnit === "kg" ? "300" : "660"}
                       />
-                      <div className="text-center mt-1 text-bmi-muted">ft</div>
+                      <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-bmi-muted">
+                        {data.weightUnit === "lb" ? "lbs" : "kg"}
+                      </span>
                     </div>
-                    <div className="flex-1">
-                      <Input
-                        type="number"
-                        value={data.heightIn}
-                        onChange={(e) => updateData("heightIn", e.target.value)}
-                        className={`text-2xl font-light text-center border-2 transition-all duration-300 focus:border-bmi-primary ${
-                          errors.heightIn
-                            ? "border-bmi-danger"
-                            : "border-bmi-input-border"
-                        }`}
-                        placeholder="7"
-                        min="0"
-                        max="11"
-                      />
-                      <div className="text-center mt-1 text-bmi-muted">in</div>
+
+                    {/* Unit Switch */}
+                    <div className="flex justify-center">
+                      <div className="flex bg-bmi-input-border rounded-full p-1">
+                        <button
+                          onClick={() => updateData("weightUnit", "kg")}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105
+            ${
+              data.weightUnit === "kg"
+                ? "bg-bmi-primary text-white shadow-md"
+                : "text-bmi-muted hover:text-foreground"
+            }`}
+                        >
+                          kg
+                        </button>
+                        <button
+                          onClick={() => updateData("weightUnit", "lb")}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105
+            ${
+              data.weightUnit === "lb"
+                ? "bg-bmi-primary text-white shadow-md"
+                : "text-bmi-muted hover:text-foreground"
+            }`}
+                        >
+                          lb
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="mb-4">
-                    <Input
-                      type="number"
-                      value={data.heightCm}
-                      onChange={(e) => updateData("heightCm", e.target.value)}
-                      className={`text-2xl font-light text-center border-2 transition-all duration-300 focus:border-bmi-primary ${
-                        errors.heightCm
-                          ? "border-bmi-danger"
-                          : "border-bmi-input-border"
-                      }`}
-                      placeholder="170"
-                      min="100"
-                      max="250"
-                    />
-                    <div className="text-center mt-1 text-bmi-muted">cm</div>
-                  </div>
-                )}
 
-                <div className="flex justify-center">
-                  <div className="flex bg-bmi-input-border rounded-full p-1">
-                    <button
-                      onClick={() => updateData("heightUnit", "ft-in")}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 ${
-                        data.heightUnit === "ft-in"
-                          ? "bg-bmi-primary text-white shadow-md"
-                          : "text-bmi-muted hover:text-foreground"
-                      }`}
-                    >
-                      ft/in
-                    </button>
-                    <button
-                      onClick={() => updateData("heightUnit", "cm")}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 ${
-                        data.heightUnit === "cm"
-                          ? "bg-bmi-primary text-white shadow-md"
-                          : "text-bmi-muted hover:text-foreground"
-                      }`}
-                    >
-                      cm
-                    </button>
-                  </div>
-                </div>
-
-                {(errors.heightFt || errors.heightIn || errors.heightCm) && (
-                  <div className="flex items-center gap-2 mt-3 text-bmi-danger text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.heightFt || errors.heightIn || errors.heightCm}
-                  </div>
-                )}
-              </Card>
-
-              {/* Weight Input */}
-              <Card
-                className={`p-6 bg-gradient-to-br from-bmi-card to-bmi-hover border-2 transition-all duration-300 animate-scale-in ${
-                  errors.weight
-                    ? "border-bmi-danger"
-                    : "border-bmi-input-border hover:border-bmi-primary"
-                } ${data.weight ? "shadow-lg" : ""}`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-6 h-6 bg-bmi-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
-                    4
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    How much do you weigh?
-                  </h3>
-                </div>
-
-                <div className="relative mb-4">
-                  <Input
-                    type="number"
-                    value={data.weight}
-                    onChange={(e) => updateData("weight", e.target.value)}
-                    className={`text-2xl font-light text-center border-2 transition-all duration-300 focus:border-bmi-primary ${
-                      errors.weight
-                        ? "border-bmi-danger"
-                        : "border-bmi-input-border"
-                    }`}
-                    placeholder={data.weightUnit === "kg" ? "70" : "154"}
-                    min={data.weightUnit === "kg" ? "10" : "22"}
-                    max={data.weightUnit === "kg" ? "300" : "660"}
-                  />
-                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-bmi-muted">
-                    {data.weightUnit === "lb" ? "lbs" : "kg"}
-                  </span>
-                </div>
-
-                <div className="flex justify-center">
-                  <div className="flex bg-bmi-input-border rounded-full p-1">
-                    <button
-                      onClick={() => updateData("weightUnit", "kg")}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 ${
-                        data.weightUnit === "kg"
-                          ? "bg-bmi-primary text-white shadow-md"
-                          : "text-bmi-muted hover:text-foreground"
-                      }`}
-                    >
-                      kg
-                    </button>
-                    <button
-                      onClick={() => updateData("weightUnit", "lb")}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 ${
-                        data.weightUnit === "lb"
-                          ? "bg-bmi-primary text-white shadow-md"
-                          : "text-bmi-muted hover:text-foreground"
-                      }`}
-                    >
-                      lb
-                    </button>
-                  </div>
-                </div>
-
-                {errors.weight && (
-                  <div className="flex items-center gap-2 mt-3 text-bmi-danger text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    {errors.weight}
-                  </div>
-                )}
-              </Card>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                onClick={calculateBMI}
-                disabled={isCalculating || progress < 100}
-                className={`px-12 py-4 text-lg font-semibold text-white rounded-full transform transition-all duration-300 hover:scale-105 ${
-                  isCalculating ? "animate-pulse-glow" : ""
-                } ${
-                  progress === 100
-                    ? "shadow-lg hover:shadow-xl"
-                    : "opacity-60 cursor-not-allowed"
-                }`}
-                style={{ background: "var(--bmi-gradient-primary)" }}
-              >
-                {isCalculating ? (
-                  <>
-                    <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2" />
-                    Calculating...
-                  </>
-                ) : (
-                  <>
-                    <Calculator className="w-5 h-5 mr-2" />
-                    Calculate BMI
-                  </>
-                )}
-              </Button>
-
-              <Button
-                onClick={resetCalculator}
-                variant="outline"
-                className="px-6 py-4 text-sm font-medium border-2 border-bmi-input-border hover:border-bmi-primary hover:bg-bmi-hover transition-all duration-300 transform hover:scale-105"
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Reset
-              </Button>
-            </div>
-          </div>
-
-          {/* Right Column - Reference Chart */}
-          <div className="animate-fade-in">
-            <BMIChart />
-          </div>
-        </div>
-
-        {/* Results Section */}
-        {result && (
-          <div className="mt-12 space-y-8 animate-bounce-in">
-            {/* BMI Gauge */}
-            <Card className="p-8 bg-gradient-to-br from-bmi-card to-bmi-hover border-bmi-input-border shadow-xl">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-foreground mb-2">
-                  Your BMI Result
-                </h2>
-                <p className="text-bmi-muted">
-                  Based on your height and weight measurements
-                </p>
+                    {/* Error */}
+                    {errors.weight && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex items-center gap-2 mt-4 text-bmi-danger text-sm"
+                      >
+                        <AlertCircle className="w-4 h-4" />
+                        {errors.weight}
+                      </motion.div>
+                    )}
+                  </Card>
+                </motion.div>
               </div>
 
-              <BMIGauge bmi={result.bmi} category={result.category} />
-
-              <div className="text-center mt-6 space-y-2">
-                <div
-                  className={`text-2xl font-bold ${getCategoryColor(
-                    result.category
-                  )}`}
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button
+                  onClick={calculateBMI}
+                  disabled={isCalculating || progress < 100}
+                  className={`px-12 py-4 text-lg font-semibold text-white rounded-full transform transition-all duration-300 hover:scale-105 ${
+                    isCalculating ? "animate-pulse-glow" : ""
+                  } ${
+                    progress === 100
+                      ? "shadow-lg hover:shadow-xl"
+                      : "opacity-60 cursor-not-allowed"
+                  }`}
+                  style={{ background: "var(--bmi-gradient-primary)" }}
                 >
-                  {result.category}
-                </div>
-                <p className="text-bmi-muted max-w-2xl mx-auto leading-relaxed">
-                  {result.interpretation}
-                </p>
-                <div className="p-3 bg-bmi-hover rounded-lg mt-4">
-                  <p className="text-sm text-bmi-muted">
-                    <strong>Health Risk:</strong> {result.healthRisk}
+                  {isCalculating ? (
+                    <>
+                      <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2" />
+                      Calculating...
+                    </>
+                  ) : (
+                    <>
+                      <Calculator className="w-5 h-5 mr-2" />
+                      Calculate BMI
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  onClick={resetCalculator}
+                  variant="outline"
+                  className="px-6 py-4 text-sm font-medium border-2 border-bmi-input-border hover:border-bmi-primary hover:bg-bmi-hover transition-all duration-300 transform hover:scale-105"
+                >
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Reset
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Column - Reference Chart */}
+            <div className="animate-fade-in">
+              <BMIChart />
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mt-12 space-y-8"
+        >
+          {" "}
+          {/* Results Section */}
+          {result && (
+            <div className="mt-12 space-y-8 animate-bounce-in">
+              {/* BMI Gauge */}
+              <Card className="p-8 bg-gradient-to-br from-bmi-card to-bmi-hover border-bmi-input-border shadow-xl">
+                <div className="text-center mb-6">
+                  <h2 className="text-3xl font-bold text-foreground mb-2">
+                    Your BMI Result
+                  </h2>
+                  <p className="text-bmi-muted">
+                    Based on your height and weight measurements
                   </p>
                 </div>
-              </div>
-            </Card>
 
-            {/* Health Recommendations */}
-            <HealthRecommendations
-              category={result.category}
-              bmi={result.bmi}
-            />
-          </div>
-        )}
+                <BMIGauge bmi={result.bmi} category={result.category} />
+
+                <div className="text-center mt-6 space-y-2">
+                  <div
+                    className={`text-2xl font-bold ${getCategoryColor(
+                      result.category
+                    )}`}
+                  >
+                    {result.category}
+                  </div>
+                  <p className="text-bmi-muted max-w-2xl mx-auto leading-relaxed">
+                    {result.interpretation}
+                  </p>
+                  <div className="p-3 bg-bmi-hover rounded-lg mt-4">
+                    <p className="text-sm text-bmi-muted">
+                      <strong>Health Risk:</strong> {result.healthRisk}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Health Recommendations */}
+              <HealthRecommendations
+                category={result.category}
+                bmi={result.bmi}
+              />
+            </div>
+          )}
+        </motion.div>
       </div>
     </div>
   );

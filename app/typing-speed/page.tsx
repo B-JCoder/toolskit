@@ -38,7 +38,7 @@ export default function TypingSpeedPage() {
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: "Typing Speed Test", href: "/typing-speed" }]} />
-
+<TypingSpeed />
         <ToolPageLayout
           icon={Keyboard}
           title="Typing Speed Checker"
@@ -85,7 +85,7 @@ export default function TypingSpeedPage() {
             </ul>
           </div>
 
-          <TypingSpeed />
+          
         </ToolPageLayout>
       </div>
     </>

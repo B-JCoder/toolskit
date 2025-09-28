@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { GraduationCap } from "lucide-react"
 import { ToolPageLayout } from "@/components/tool-page-layout"
-import { GPACalculator } from "@/components/gpa-calculator/gpa-calculator"
+import  GPACalculator  from "@/components/gpa-calculator/gpa-calculator"
 import { StructuredData } from "@/components/seo/structured-data"
 import { Breadcrumbs } from "@/components/seo/breadcrumbs"
 
@@ -38,6 +38,7 @@ export default function GPACalculatorPage() {
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: "GPA Calculator", href: "/gpa-calculator" }]} />
+        <GPACalculator />
 
         <ToolPageLayout
           icon={GraduationCap}
@@ -96,7 +97,7 @@ export default function GPACalculatorPage() {
             </ul>
           </div>
 
-          <GPACalculator />
+        
         </ToolPageLayout>
       </div>
     </>

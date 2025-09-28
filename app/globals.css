@@ -36,7 +36,60 @@
   --sidebar-border: #e5e7eb;
   --sidebar-ring: rgba(26, 20, 165, 0.3);
   
+  /* BMI Colors aligned with your theme */
+  --bmi-primary: 239 78% 36%;       /* your --primary (#1a14a5) */
+  --bmi-secondary: 199 89% 60%;     /* your --accent (#38bdf8) */
+  --bmi-accent: 142 76% 45%;        /* your --chart-3 (#34d399) */
+  --bmi-success: 142 76% 45%;       /* green tone for success */
+  --bmi-warning: 38 92% 55%;        /* warm amber warning */
+  --bmi-danger: 0 84% 58%;          /* your destructive (#ef4444) */
+
+  /* Gradients using theme colors */
+  --bmi-gradient-primary: linear-gradient(
+    135deg,
+    hsl(var(--bmi-primary)),
+    hsl(var(--bmi-secondary))
+  );
+  --bmi-gradient-success: linear-gradient(
+    135deg,
+    hsl(var(--bmi-success)),
+    hsl(142 76% 55%)
+  );
+  --bmi-gradient-warning: linear-gradient(
+    135deg,
+    hsl(var(--bmi-warning)),
+    hsl(38 92% 65%)
+  );
+  --bmi-gradient-danger: linear-gradient(
+    135deg,
+    hsl(var(--bmi-danger)),
+    hsl(0 84% 70%)
+  );
+  --bmi-gradient-card: linear-gradient(
+    145deg,
+    hsl(0 0% 100%),
+    hsl(220 20% 98%)
+  );
+
+  /* Enhanced UI colors */
+  --bmi-card: 0 0% 100%;            /* white card */
+  --bmi-card-shadow: 220 20% 88%;   /* soft gray shadow */
+  --bmi-muted: 220 15% 55%;         /* matches your --muted */
+  --bmi-input-border: 220 20% 90%;  /* light gray border */
+  --bmi-selected: 239 78% 95%;      /* light tint of primary */
+  --bmi-selected-border: var(--bmi-primary);
+  --bmi-hover: 220 20% 96%;         /* subtle hover bg */
+
+  /* Shadows (themed glow and depth) */
+  --bmi-shadow-sm: 0 2px 8px -1px hsl(220 20% 88% / 0.3);
+  --bmi-shadow-md: 0 4px 16px -2px hsl(220 20% 80% / 0.25);
+  --bmi-shadow-lg: 0 8px 32px -4px hsl(220 20% 70% / 0.2);
+  --bmi-shadow-glow: 0 0 20px hsl(var(--bmi-primary) / 0.3);
 }
+
+  
+  
+
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
@@ -128,4 +181,11 @@
 
 .read-the-docs {
   color: #888;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(26, 20, 165, 0.3); }
+  50% { box-shadow: 0 0 16px rgba(26, 20, 165, 0.6); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
 }

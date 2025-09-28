@@ -1,7 +1,8 @@
+
 import type { Metadata } from "next"
 import { Zap } from "lucide-react"
 import { ToolPageLayout } from "@/components/tool-page-layout"
-import { CPSChecker } from "@/components/cps-checker/cps-checker"
+import  CPSChecker  from "@/components/cps-checker/cps-checker"
 import { StructuredData } from "@/components/seo/structured-data"
 import { Breadcrumbs } from "@/components/seo/breadcrumbs"
 
@@ -31,7 +32,7 @@ export default function CPSCheckerPage() {
 
       <div className="container mx-auto px-4 py-8">
         <Breadcrumbs items={[{ label: "CPS Checker", href: "/cps-checker" }]} />
-
+<CPSChecker />
         <ToolPageLayout
           icon={Zap}
           title="CPS Checker"
@@ -40,7 +41,7 @@ export default function CPSCheckerPage() {
           <div className="mb-8 prose prose-gray dark:prose-invert max-w-none">
             <h2 className="text-2xl font-semibold mb-4">What is CPS Testing?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              CPS (Clicks Per Second) testing measures how many times you can click your mouse in one second. It's a
+              CPS (Clicks Per Second) testing measures how many times you can click your mouse in one second. It&apos;s a
               popular way to test your clicking speed, reaction time, and mouse control skills.
             </p>
 
@@ -62,7 +63,7 @@ export default function CPSCheckerPage() {
 
             <h3 className="text-xl font-semibold mb-3 mt-6">How to Use the CPS Checker:</h3>
             <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-              <li>Click the "Start Test" button to begin</li>
+              <li>Click the &quot;Start Test&quot; button to begin</li>
               <li>Click as fast as you can within the time limit</li>
               <li>View your CPS score and performance rating</li>
               <li>Try multiple times to improve your score</li>
@@ -77,7 +78,7 @@ export default function CPSCheckerPage() {
             </ul>
           </div>
 
-          <CPSChecker />
+          
         </ToolPageLayout>
       </div>
     </>

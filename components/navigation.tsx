@@ -61,7 +61,7 @@ export function Navigation() {
 
               {/* Animated Dropdown */}
               <div
-                className={`absolute top-12 left-0 w-[480px] 
+                className={`absolute top-6 left-0 w-[480px] 
                   bg-gradient-to-r from-primary to-accent 
                   text-white shadow-2xl rounded-xl 
                   border border-white/10 
