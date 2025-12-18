@@ -72,7 +72,7 @@ export default function HomePage() {
           </div>
 
           {/* Grid of Tools */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8">
             {/* BMI Calculator */}
             <div className="p-6 rounded-2xl bg-card shadow-lg border border-border hover:shadow-xl transition-all">
               <h3 className="text-xl font-semibold text-primary mb-2">BMI Calculator</h3>
