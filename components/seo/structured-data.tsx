@@ -1,10 +1,10 @@
 interface StructuredDataProps {
-  type: "WebApplication" | "SoftwareApplication" | "WebPage"
-  name: string
-  description: string
-  url: string
-  applicationCategory?: string
-  operatingSystem?: string
+  type: "WebApplication" | "SoftwareApplication" | "WebPage";
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string;
+  operatingSystem?: string;
 }
 
 export function StructuredData({
@@ -30,9 +30,14 @@ export function StructuredData({
     },
     author: {
       "@type": "Organization",
-      name: "Toolkit",
+      name: "ToolFixo",
     },
-  }
+  };
 
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  );
 }

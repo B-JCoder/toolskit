@@ -125,7 +125,7 @@ export function ToolsGrid() {
   // Load favorites from local storage
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem("toolkit-favorites");
+    const stored = localStorage.getItem("toolfixo-favorites");
     if (stored) {
       setFavorites(JSON.parse(stored));
     }
@@ -138,7 +138,7 @@ export function ToolsGrid() {
       : [...favorites, id];
 
     setFavorites(newFavorites);
-    localStorage.setItem("toolkit-favorites", JSON.stringify(newFavorites));
+    localStorage.setItem("toolfixo-favorites", JSON.stringify(newFavorites));
   };
 
   // Filter tools

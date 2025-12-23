@@ -11,8 +11,8 @@ import { Suspense } from "react";
 // import Preloader from "@/components/Preloader"
 export const metadata: Metadata = {
   title: {
-    default: "Toolkit — Handy Web Tools",
-    template: "%s | Toolkit",
+    default: "ToolFixo — Handy Web Tools",
+    template: "%s | ToolFixo",
   },
   description:
     "A comprehensive collection of handy web tools including BMI calculator, typing speed test, GPA calculator, and more. Free online utilities for productivity and calculations.",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "online tools",
     "utilities",
   ],
-  authors: [{ name: "Toolkit" }],
-  creator: "Toolkit",
-  publisher: "Toolkit",
+  authors: [{ name: "ToolFixo" }],
+  creator: "ToolFixo",
+  publisher: "ToolFixo",
   robots: {
     index: true,
     follow: true,
@@ -42,15 +42,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://toolkit.example.com",
-    title: "Toolkit — Handy Web Tools",
+    url: "https://toolfixo.online",
+    title: "ToolFixo — Handy Web Tools",
     description:
       "A comprehensive collection of handy web tools including calculators, generators, and utilities",
-    siteName: "Toolkit",
+    siteName: "ToolFixo",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Toolkit — Handy Web Tools",
+    title: "ToolFixo — Handy Web Tools",
     description:
       "A comprehensive collection of handy web tools including calculators, generators, and utilities",
   },

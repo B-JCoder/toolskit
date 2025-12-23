@@ -1,16 +1,22 @@
-import Head from "next/head"
+import Head from "next/head";
 
 interface MetaTagsProps {
-  title: string
-  description: string
-  keywords?: string[]
-  canonical?: string
-  ogImage?: string
+  title: string;
+  description: string;
+  keywords?: string[];
+  canonical?: string;
+  ogImage?: string;
 }
 
-export function MetaTags({ title, description, keywords, canonical, ogImage }: MetaTagsProps) {
-  const fullTitle = `${title} | Toolkit`
-  const defaultOgImage = "/og-image.png"
+export function MetaTags({
+  title,
+  description,
+  keywords,
+  canonical,
+  ogImage,
+}: MetaTagsProps) {
+  const fullTitle = `${title} | ToolFixo`;
+  const defaultOgImage = "/og-image.png";
 
   return (
     <Head>
@@ -33,8 +39,8 @@ export function MetaTags({ title, description, keywords, canonical, ogImage }: M
 
       {/* Additional SEO */}
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Toolkit" />
+      <meta name="author" content="ToolFixo" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-  )
+  );
 }

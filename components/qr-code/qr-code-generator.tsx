@@ -1,52 +1,53 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { QRCodeCanvas } from "qrcode.react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Slider } from "@/components/ui/slider"
-import { Download, Copy, RefreshCw } from "lucide-react"
-import { toast } from "sonner"
+import { useState, useRef } from "react";
+import { QRCodeCanvas } from "qrcode.react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Slider } from "@/components/ui/slider";
+import { Download, Copy, RefreshCw } from "lucide-react";
+import { toast } from "sonner";
 
 export function QRCodeGenerator() {
-  const [text, setText] = useState("https://toolkit.com")
-  const [size, setSize] = useState(256)
-  const [bgColor, setBgColor] = useState("#ffffff")
-  const [fgColor, setFgColor] = useState("#000000")
-  const [level, setLevel] = useState<"L" | "M" | "Q" | "H">("L")
-  const qrRef = useRef<HTMLDivElement>(null)
+  const [text, setText] = useState("https://toolfixo.online");
+  const [size, setSize] = useState(256);
+  const [bgColor, setBgColor] = useState("#ffffff");
+  const [fgColor, setFgColor] = useState("#000000");
+  const [level, setLevel] = useState<"L" | "M" | "Q" | "H">("L");
+  const qrRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = () => {
-    const canvas = qrRef.current?.querySelector("canvas")
+    const canvas = qrRef.current?.querySelector("canvas");
     if (canvas) {
-      const url = canvas.toDataURL("image/png")
-      const a = document.createElement("a")
-      a.href = url
-      a.download = "qrcode.png"
-      a.click()
-      toast.success("QR Code downloaded successfully")
+      const url = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "qrcode.png";
+      a.click();
+      toast.success("QR Code downloaded successfully");
     }
-  }
+  };
 
   const handleCopy = () => {
-    const canvas = qrRef.current?.querySelector("canvas")
+    const canvas = qrRef.current?.querySelector("canvas");
     if (canvas) {
       canvas.toBlob((blob) => {
         if (blob) {
-            navigator.clipboard.write([
-                new ClipboardItem({ "image/png": blob })
-            ]).then(() => {
-                toast.success("QR Code copied to clipboard")
-            }).catch(() => {
-                toast.error("Failed to copy QR Code")
+          navigator.clipboard
+            .write([new ClipboardItem({ "image/png": blob })])
+            .then(() => {
+              toast.success("QR Code copied to clipboard");
             })
+            .catch(() => {
+              toast.error("Failed to copy QR Code");
+            });
         }
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -115,7 +116,12 @@ export function QRCodeGenerator() {
 
             <div>
               <Label>Error Correction Level</Label>
-              <Tabs defaultValue="L" value={level} onValueChange={(v) => setLevel(v as "L" | "M" | "Q" | "H")} className="mt-2">
+              <Tabs
+                defaultValue="L"
+                value={level}
+                onValueChange={(v) => setLevel(v as "L" | "M" | "Q" | "H")}
+                className="mt-2"
+              >
                 <TabsList className="grid w-full grid-cols-4">
                   <TabsTrigger value="L">L (7%)</TabsTrigger>
                   <TabsTrigger value="M">M (15%)</TabsTrigger>
@@ -155,5 +161,5 @@ export function QRCodeGenerator() {
         </div>
       </div>
     </div>
-  )
+  );
 }

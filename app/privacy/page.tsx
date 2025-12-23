@@ -1,19 +1,25 @@
-import type { Metadata } from "next"
-import { Shield, Eye, Database, Cookie } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Breadcrumbs } from "@/components/seo/breadcrumbs"
+import type { Metadata } from "next";
+import { Shield, Eye, Database, Cookie } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Breadcrumbs } from "@/components/seo/breadcrumbs";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Toolkit Web Tools",
+  title: "Privacy Policy - ToolFixo Web Tools",
   description:
-    "Read our privacy policy to understand how Toolkit protects your data and respects your privacy while using our free web tools and calculators.",
-  keywords: ["privacy policy", "data protection", "user privacy", "toolkit privacy"],
+    "Read our privacy policy to understand how ToolFixo protects your data and respects your privacy while using our free web tools and calculators.",
+  keywords: [
+    "privacy policy",
+    "data protection",
+    "user privacy",
+    "toolfixo privacy",
+  ],
   openGraph: {
-    title: "Privacy Policy - Toolkit Web Tools",
-    description: "Read our privacy policy to understand how Toolkit protects your data and respects your privacy.",
+    title: "Privacy Policy - ToolFixo Web Tools",
+    description:
+      "Read our privacy policy to understand how ToolFixo protects your data and respects your privacy.",
     type: "website",
   },
-}
+};
 
 export default function PrivacyPage() {
   return (
@@ -22,8 +28,12 @@ export default function PrivacyPage() {
 
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Privacy Policy</h1>
-          <p className="text-xl text-muted-foreground">Last updated: {new Date().toLocaleDateString()}</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Privacy Policy
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
         </div>
 
         <div className="space-y-8">
@@ -36,9 +46,10 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                At Toolkit, we are committed to protecting your privacy and ensuring the security of your personal
-                information. This privacy policy explains how we collect, use, and protect your data when you use our
-                web tools.
+                At ToolFixo, we are committed to protecting your privacy and
+                ensuring the security of your personal information. This privacy
+                policy explains how we collect, use, and protect your data when
+                you use our web tools.
               </p>
             </CardContent>
           </Card>
@@ -55,15 +66,17 @@ export default function PrivacyPage() {
                 <div>
                   <h3 className="font-semibold mb-2">Personal Information</h3>
                   <p className="text-muted-foreground">
-                    We do not collect, store, or process any personal information. All calculations and data processing
-                    occur locally in your browser.
+                    We do not collect, store, or process any personal
+                    information. All calculations and data processing occur
+                    locally in your browser.
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Usage Analytics</h3>
                   <p className="text-muted-foreground">
-                    We may collect anonymous usage statistics to improve our services, including page views and tool
-                    usage patterns. This data cannot be used to identify individual users.
+                    We may collect anonymous usage statistics to improve our
+                    services, including page views and tool usage patterns. This
+                    data cannot be used to identify individual users.
                   </p>
                 </div>
               </div>
@@ -82,7 +95,9 @@ export default function PrivacyPage() {
                 <li>• To provide and maintain our web tools</li>
                 <li>• To improve user experience and tool functionality</li>
                 <li>• To analyze usage patterns for service optimization</li>
-                <li>• To ensure the security and reliability of our services</li>
+                <li>
+                  • To ensure the security and reliability of our services
+                </li>
               </ul>
             </CardContent>
           </Card>
@@ -99,15 +114,16 @@ export default function PrivacyPage() {
                 <div>
                   <h3 className="font-semibold mb-2">Essential Cookies</h3>
                   <p className="text-muted-foreground">
-                    We use minimal essential cookies to ensure proper functionality of our tools, such as theme
-                    preferences.
+                    We use minimal essential cookies to ensure proper
+                    functionality of our tools, such as theme preferences.
                   </p>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Local Storage</h3>
                   <p className="text-muted-foreground">
-                    Some tools may use browser local storage to save your preferences and calculations locally on your
-                    device. This data never leaves your browser.
+                    Some tools may use browser local storage to save your
+                    preferences and calculations locally on your device. This
+                    data never leaves your browser.
                   </p>
                 </div>
               </div>
@@ -120,9 +136,10 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Since all calculations are performed locally in your browser, your data remains on your device and is
-                never transmitted to our servers. We implement industry-standard security measures to protect our
-                website and services.
+                Since all calculations are performed locally in your browser,
+                your data remains on your device and is never transmitted to our
+                servers. We implement industry-standard security measures to
+                protect our website and services.
               </p>
             </CardContent>
           </Card>
@@ -133,9 +150,10 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                We may use third-party services for analytics and performance monitoring. These services have their own
-                privacy policies and data handling practices. We ensure that any third-party services we use comply with
-                privacy standards.
+                We may use third-party services for analytics and performance
+                monitoring. These services have their own privacy policies and
+                data handling practices. We ensure that any third-party services
+                we use comply with privacy standards.
               </p>
             </CardContent>
           </Card>
@@ -146,13 +164,13 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                If you have any questions about this privacy policy or our data practices, please contact us through our
-                website.
+                If you have any questions about this privacy policy or our data
+                practices, please contact us through our website.
               </p>
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }

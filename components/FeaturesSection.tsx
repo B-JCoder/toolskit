@@ -1,30 +1,33 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Zap, ShieldCheck, Smartphone, Clock } from "lucide-react"
+import { motion } from "framer-motion";
+import { Zap, ShieldCheck, Smartphone, Clock } from "lucide-react";
 
 const features = [
   {
     title: "Fast & Reliable",
-    description: "All tools are optimized for speed and work instantly in your browser.",
+    description:
+      "All tools are optimized for speed and work instantly in your browser.",
     icon: Zap,
   },
   {
     title: "Privacy First",
-    description: "We don’t collect or store your data. Everything runs locally.",
+    description:
+      "We don’t collect or store your data. Everything runs locally.",
     icon: ShieldCheck,
   },
   {
     title: "Mobile Friendly",
-    description: "Our tools are fully responsive and work seamlessly on any device.",
+    description:
+      "Our tools are fully responsive and work seamlessly on any device.",
     icon: Smartphone,
   },
   {
     title: "Always Available",
-    description: "Access our toolkit anytime, anywhere – no sign-up required.",
+    description: "Access ToolFixo anytime, anywhere – no sign-up required.",
     icon: Clock,
   },
-]
+];
 
 export function FeaturesSection() {
   return (
@@ -41,13 +44,14 @@ export function FeaturesSection() {
             ✨ Features of Our Tools
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Designed with simplicity, speed, and security in mind — here’s what makes Toolkit stand out.
+            Designed with simplicity, speed, and security in mind — here’s what
+            makes ToolFixo stand out.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, i) => {
-            const Icon = feature.icon
+            const Icon = feature.icon;
             return (
               <motion.div
                 key={i}
@@ -66,10 +70,10 @@ export function FeaturesSection() {
                   {feature.description}
                 </p>
               </motion.div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

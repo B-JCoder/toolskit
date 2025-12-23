@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="relative mt-16 text-white">
       {/* Background with overlay */}
       <div className="absolute inset-0">
-       <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source
-          src="https://v1.pinimg.com/videos/mc/720p/44/12/67/441267f7b86440dbb3d1f718c8c0b001.mp4"
-          type="video/mp4"
-        />
-      </video>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source
+            src="https://v1.pinimg.com/videos/mc/720p/44/12/67/441267f7b86440dbb3d1f718c8c0b001.mp4"
+            type="video/mp4"
+          />
+        </video>
         <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       </div>
 
@@ -41,7 +41,7 @@ export function Footer() {
               transition={{ delay: 0.2 }}
               className="text-3xl font-bold mb-4"
             >
-              🚀 Toolkit
+              🚀 ToolFixo
             </motion.h2>
             <p className="text-gray-300 text-sm leading-relaxed">
               Your ultimate collection of free calculators, generators, and
@@ -135,9 +135,9 @@ export function Footer() {
           transition={{ duration: 0.7 }}
           className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400"
         >
-          <p>© {new Date().getFullYear()} Toolkit. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} ToolFixo. All rights reserved.</p>
           <p>
-            Built By {" "}
+            Built By{" "}
             <Link
               href="https://bshsolutionss.com/"
               className="hover:text-white font-semibold"
@@ -148,5 +148,5 @@ export function Footer() {
         </motion.div>
       </div>
     </footer>
-  )
+  );
 }

@@ -95,7 +95,7 @@ export function Navigation() {
             href="/"
             className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-lg transition-all duration-300"
           >
-            Toolkit
+            ToolFixo
           </Link>
 
           {/* Desktop Nav */}
