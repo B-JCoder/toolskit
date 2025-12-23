@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Menu,
   X,
@@ -13,23 +13,81 @@ import {
   GraduationCap,
   Heart,
   Keyboard,
-} from "lucide-react"
+  QrCode,
+  Lock,
+  Timer,
+  RefreshCcw,
+} from "lucide-react";
 
 const tools = [
-  { name: "CPS Checker", href: "/cps-checker", icon: Zap, desc: "Test your clicking speed" },
-  { name: "Japanese Name Generator", href: "/japanese-names", icon: Globe, desc: "Generate Japanese names" },
-  { name: "GrowAGarden Calculator", href: "/growagarden", icon: Calculator, desc: "Garden growth metrics" },
-  { name: "GPA Calculator", href: "/gpa-calculator", icon: GraduationCap, desc: "Calculate GPA easily" },
-  { name: "BMI Calculator", href: "/bmi-calculator", icon: Heart, desc: "Check your body mass index" },
-  { name: "Typing Speed Checker", href: "/typing-speed", icon: Keyboard, desc: "Test typing speed & accuracy" },
-]
+  {
+    name: "CPS Checker",
+    href: "/cps-checker",
+    icon: Zap,
+    desc: "Test your clicking speed",
+  },
+  {
+    name: "Japanese Name Generator",
+    href: "/japanese-names",
+    icon: Globe,
+    desc: "Generate Japanese names",
+  },
+  {
+    name: "GrowAGarden Calculator",
+    href: "/growagarden",
+    icon: Calculator,
+    desc: "Garden growth metrics",
+  },
+  {
+    name: "GPA Calculator",
+    href: "/gpa-calculator",
+    icon: GraduationCap,
+    desc: "Calculate GPA easily",
+  },
+  {
+    name: "BMI Calculator",
+    href: "/bmi-calculator",
+    icon: Heart,
+    desc: "Check your body mass index",
+  },
+  {
+    name: "Typing Speed Checker",
+    href: "/typing-speed",
+    icon: Keyboard,
+    desc: "Test typing speed & accuracy",
+  },
+  {
+    name: "QR Code Generator",
+    href: "/qr-code",
+    icon: QrCode,
+    desc: "Create custom QR codes",
+  },
+  {
+    name: "Secure Password",
+    href: "/password-generator",
+    icon: Lock,
+    desc: "Generate strong passwords",
+  },
+  {
+    name: "Pomodoro Timer",
+    href: "/pomodoro",
+    icon: Timer,
+    desc: "Focus timer technique",
+  },
+  {
+    name: "Unit Converter",
+    href: "/unit-converter",
+    icon: RefreshCcw,
+    desc: "Convert various units",
+  },
+];
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-      <nav className="sticky top-0 z-50 border-b border-white/10 bg-background/40 backdrop-blur-md shadow-lg">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-background/40 backdrop-blur-md shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -42,10 +100,16 @@ export function Navigation() {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="/" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
+            <Link
+              href="/"
+              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
+            >
               Home
             </Link>
-            <Link href="/about" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
+            <Link
+              href="/about"
+              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
+            >
               About
             </Link>
 
@@ -56,7 +120,13 @@ export function Navigation() {
               onMouseLeave={() => setDropdownOpen(false)}
             >
               <button className="flex items-center gap-1 hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
-                Tools <ChevronDown className="h-4 w-4 transition-transform duration-300" style={{ transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+                Tools{" "}
+                <ChevronDown
+                  className="h-4 w-4 transition-transform duration-300"
+                  style={{
+                    transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                />
               </button>
 
               {/* Animated Dropdown */}
@@ -67,11 +137,15 @@ export function Navigation() {
                   border border-white/10 
                   p-4 grid grid-cols-2 gap-3
                   transition-all duration-300
-                  ${dropdownOpen ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
+                  ${
+                    dropdownOpen
+                      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+                  }
                 `}
               >
                 {tools.map((tool) => {
-                  const Icon = tool.icon
+                  const Icon = tool.icon;
                   return (
                     <Link
                       key={tool.href}
@@ -86,12 +160,15 @@ export function Navigation() {
                         <div className="text-xs opacity-80">{tool.desc}</div>
                       </div>
                     </Link>
-                  )
+                  );
                 })}
               </div>
             </div>
 
-            <Link href="/contact" className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
+            <Link
+              href="/contact"
+              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
+            >
               Contact
             </Link>
           </div>
@@ -112,55 +189,68 @@ export function Navigation() {
               aria-label="Toggle menu"
               className="transition-all duration-200"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
 
-      {/* Mobile Menu */}
-<div
-  className={`lg:hidden absolute left-0 right-0 top-16 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 shadow-md border-t border-white/10 transition-all duration-300 ${
-    isOpen
-      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-  }`}
->
-  <Link href="/" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-    Home
-  </Link>
-  <Link href="/about" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-    About
-  </Link>
-
-  <details className="rounded-lg">
-    <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
-      Tools
-    </summary>
-    <div className="pl-2 mt-2 space-y-2">
-      {tools.map((tool) => {
-        const Icon = tool.icon
-        return (
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden absolute left-0 right-0 top-16 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 shadow-md border-t border-white/10 transition-all duration-300 ${
+            isOpen
+              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+          }`}
+        >
           <Link
-            key={tool.href}
-            href={tool.href}
-            className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+            href="/"
+            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
           >
-            <Icon className="h-4 w-4 text-white" />
-            {tool.name}
+            Home
           </Link>
-        )
-      })}
-    </div>
-  </details>
+          <Link
+            href="/about"
+            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            About
+          </Link>
 
-  <Link href="/contact" className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors">
-    Contact
-  </Link>
-  <Button className="w-full mt-3 rounded-lg bg-gradient-to-r from-primary to-accent text-white shadow-md">
-    Request Custom Tool
-  </Button>
-</div>
+          <details className="rounded-lg">
+            <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
+              Tools
+            </summary>
+            <div className="pl-2 mt-2 space-y-2">
+              {tools.map((tool) => {
+                const Icon = tool.icon;
+                return (
+                  <Link
+                    key={tool.href}
+                    href={tool.href}
+                    className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+                  >
+                    <Icon className="h-4 w-4 text-white" />
+                    {tool.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </details>
+
+          <Link
+            href="/contact"
+            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            Contact
+          </Link>
+          <Button className="w-full mt-3 rounded-lg bg-gradient-to-r from-primary to-accent text-white shadow-md">
+            Request Custom Tool
+          </Button>
+        </div>
       </div>
     </nav>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
-import { Suspense } from "react"
-import { ThemeProvider } from "@/components/theme-provider"
+import type React from "react";
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
+import { Suspense } from "react";
+
 // import Preloader from "@/components/Preloader"
 export const metadata: Metadata = {
   title: {
@@ -44,35 +44,37 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://toolkit.example.com",
     title: "Toolkit — Handy Web Tools",
-    description: "A comprehensive collection of handy web tools including calculators, generators, and utilities",
+    description:
+      "A comprehensive collection of handy web tools including calculators, generators, and utilities",
     siteName: "Toolkit",
   },
   twitter: {
     card: "summary_large_image",
     title: "Toolkit — Handy Web Tools",
-    description: "A comprehensive collection of handy web tools including calculators, generators, and utilities",
+    description:
+      "A comprehensive collection of handy web tools including calculators, generators, and utilities",
   },
   generator: "v0.app",
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} min-h-screen flex flex-col antialiased`}>
-        <ThemeProvider>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navigation />
-             {/* <Preloader />         */}
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </Suspense>
-          <Analytics />
-        </ThemeProvider>
+      <body
+        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} min-h-screen flex flex-col antialiased`}
+      >
+        <Suspense fallback={<div>Loading...</div>}>
+          <Navigation />
+          {/* <Preloader />         */}
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Suspense>
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }
