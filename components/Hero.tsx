@@ -2,9 +2,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { Calculator, MousePointerClick, Keyboard, BarChart3 } from "lucide-react";
+import {
+  Calculator,
+  MousePointerClick,
+  Keyboard,
+  BarChart3,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import Hero3d from "./Hero3d";
 
 export default function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -28,9 +32,6 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black pt-16 overflow-hidden">
       {/* Hero3D as Background */}
-      <div className="absolute inset-0 z-0">
-        <Hero3d />
-      </div>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px] z-10" />
