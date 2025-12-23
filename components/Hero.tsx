@@ -38,10 +38,10 @@ export default function HeroSection() {
 
       {/* Mouse Tracking Glow */}
       <div
-        className="absolute w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-primary/20 rounded-full blur-3xl pointer-events-none transition-transform duration-200 z-20"
+        className="absolute w-64 h-64 sm:w-96 sm:h-96 md:w-[30rem] md:h-[30rem] bg-primary/20 rounded-full blur-3xl pointer-events-none transition-transform duration-200 z-20"
         style={{
-          transform: `translate(${mousePosition.x - 200}px, ${
-            mousePosition.y - 200
+          transform: `translate(${mousePosition.x - 150}px, ${
+            mousePosition.y - 150
           }px)`,
         }}
       />
