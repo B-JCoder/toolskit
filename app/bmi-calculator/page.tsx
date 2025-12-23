@@ -144,6 +144,18 @@ export default function BMICalculatorPage() {
               </ul>
             </div>
 
+            <div>
+              <h3 className="text-xl font-semibold mb-4">
+                Who Should Use This Tool?
+              </h3>
+              <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+                <li>Adults wanting to track their general weight health</li>
+                <li>Fitness enthusiasts monitoring body composition changes</li>
+                <li>People starting a weight loss or weight gain journey</li>
+                <li>Anyone mindful about cardiovascular health risks</li>
+              </ul>
+            </div>
+
             <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
               <h3 className="text-xl font-semibold mb-3 text-blue-900 dark:text-blue-200">
                 ⚕️ Disclaimer

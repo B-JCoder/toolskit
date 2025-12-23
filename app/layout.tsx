@@ -14,6 +14,19 @@ export const metadata: Metadata = {
     default: "ToolFixo — Handy Web Tools",
     template: "%s | ToolFixo",
   },
+  metadataBase: new URL("https://toolfixo.online"),
+  alternates: {
+    canonical: "/",
+  },
+  applicationName: "ToolFixo",
+  appleWebApp: {
+    capable: true,
+    title: "ToolFixo",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   description:
     "A comprehensive collection of handy web tools including BMI calculator, typing speed test, GPA calculator, and more. Free online utilities for productivity and calculations.",
   keywords: [

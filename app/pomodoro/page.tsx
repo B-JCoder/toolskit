@@ -55,18 +55,65 @@ export default function PomodoroPage() {
                 The Pomodoro Technique is a time management method developed by
                 Francesco Cirillo in the late 1980s. It uses a timer to break
                 work into intervals, traditionally 25 minutes in length,
-                separated by short breaks.
+                separated by short breaks. This method trains your brain to
+                focus for short periods and helps you stay on top of deadlines
+                or constantly-refilling inboxes.
               </p>
-              <h3 className="text-lg font-semibold mt-4 mb-2">
-                How to use it effectively:
-              </h3>
-              <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-                <li>Decide on the task to be done and add it to the list</li>
-                <li>Set the timer to 25 minutes (Work mode)</li>
-                <li>Work on the task until the timer rings</li>
-                <li>Take a short 5-minute break</li>
-                <li>Every 4 pomodoros, take a longer 15-minute break</li>
-              </ol>
+
+              <div className="mt-8 grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">
+                    How to use it effectively
+                  </h3>
+                  <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
+                    <li>
+                      Decide on the task to be done and add it to the list
+                    </li>
+                    <li>Set the timer to 25 minutes (Work mode)</li>
+                    <li>Work on the task until the timer rings</li>
+                    <li>Take a short 5-minute break</li>
+                    <li>Every 4 pomodoros, take a longer 15-minute break</li>
+                  </ol>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">Benefits</h3>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Manages distractions and controls time</li>
+                    <li>• Increases accountability</li>
+                    <li>• Improves weekly and daily planning</li>
+                    <li>• Decreases back pain and mental fatigue</li>
+                    <li>• Maintains motivation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-4">Who is this for?</h3>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <div className="p-4 bg-card rounded-lg border shadow-sm">
+                  <h4 className="font-medium mb-2">Students</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Perfect for study sessions, breaking down chapters, and
+                    essay writing without burnout.
+                  </p>
+                </div>
+                <div className="p-4 bg-card rounded-lg border shadow-sm">
+                  <h4 className="font-medium mb-2">Developers</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Ideal for "deep work" coding sessions. Focus on logical
+                    problems without interruptions.
+                  </p>
+                </div>
+                <div className="p-4 bg-card rounded-lg border shadow-sm">
+                  <h4 className="font-medium mb-2">Writers</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Overcome writer's block by committing to just 25 minutes of
+                    words on the page.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </ToolPageLayout>

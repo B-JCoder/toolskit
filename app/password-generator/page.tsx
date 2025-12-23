@@ -76,6 +76,44 @@ export default function PasswordGeneratorPage() {
                 </li>
               </ul>
             </div>
+
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">
+                How to Use This Tool
+              </h2>
+              <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
+                <li>
+                  Adjust the <strong>Password Length</strong> slider (16+
+                  recommended for strong security).
+                </li>
+                <li>
+                  Toggle options to include/exclude{" "}
+                  <strong>Uppercase, Lowercase, Numbers, or Symbols</strong>.
+                </li>
+                <li>
+                  Click the <strong>Refresh</strong> icon to generate a new
+                  password instantly.
+                </li>
+                <li>
+                  Click the <strong>Copy</strong> icon to save the password to
+                  your clipboard.
+                </li>
+              </ol>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">
+                Who Needs a Strong Password Generator?
+              </h2>
+              <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+                <li>System Administrators managing secure servers</li>
+                <li>
+                  Users signing up for sensitive financial or email accounts
+                </li>
+                <li>Developers creating test data or API keys</li>
+                <li>Anyone who wants to prevent credential reuse attacks</li>
+              </ul>
+            </div>
           </div>
         </ToolPageLayout>
       </div>

@@ -186,7 +186,9 @@ export function Navigation() {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
               className="transition-all duration-200"
             >
               {isOpen ? (
@@ -200,6 +202,7 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         <div
+          id="mobile-menu"
           className={`lg:hidden absolute left-0 right-0 top-16 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 shadow-md border-t border-white/10 transition-all duration-300 ${
             isOpen
               ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"

@@ -66,6 +66,62 @@ export default function QRCodePage() {
                 <li>Download your QR code as PNG or copy it to clipboard</li>
               </ol>
             </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-semibold mb-3">Common Uses</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li>• Website URLs and Landing Pages</li>
+                  <li>• WiFi Network Access Sharing</li>
+                  <li>• Digital Business Cards (vCards)</li>
+                  <li>• Restaurant Menus (Contactless)</li>
+                  <li>• Event Tickets and RSVPs</li>
+                  <li>• Product Packaging and Manuals</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-3">Best Practices</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li>• Ensure high contrast between colors</li>
+                  <li>• Test with multiple devices before printing</li>
+                  <li>• Don't make the QR code too small</li>
+                  <li>• Leave enough quiet zone (margin) around the code</li>
+                  <li>• Use vector formats for large printings</li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-4">
+                Frequently Asked Questions
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium">Do these QR codes expire?</h4>
+                  <p className="text-muted-foreground">
+                    No, these are static QR codes. They embed the data directly
+                    into the image and will work forever as long as the
+                    destination URL is active.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium">Are there scan limits?</h4>
+                  <p className="text-muted-foreground">
+                    No, there are zero limits on how many times your QR code can
+                    be scanned.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium">
+                    Is it free for commercial use?
+                  </h4>
+                  <p className="text-muted-foreground">
+                    Yes, you can use the generated QR codes for any purpose,
+                    including commercial projects, free of charge.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </ToolPageLayout>
       </div>
