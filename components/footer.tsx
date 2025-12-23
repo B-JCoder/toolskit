@@ -57,72 +57,65 @@ export function Footer() {
           >
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-300">
-              {["Home", "About", "Tools", "Contact"].map((link, i) => (
-                <li key={i}>
-                  <Link
-                    href={`/${link.toLowerCase()}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {link}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="hover:text-white transition-colors"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="hover:text-white transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-white transition-colors"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </motion.div>
 
-          {/* Categories */}
+          {/* Legal */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <h3 className="text-lg font-semibold mb-4">Categories</h3>
+            <h3 className="text-lg font-semibold mb-4">Legal</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link href="/tools/health" className="hover:text-white">
-                  Health & Fitness
+                <Link href="/privacy" className="hover:text-white">
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/tools/education" className="hover:text-white">
-                  Education
+                <Link href="/terms" className="hover:text-white">
+                  Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/tools/productivity" className="hover:text-white">
-                  Productivity
-                </Link>
-              </li>
-              <li>
-                <Link href="/tools/creative" className="hover:text-white">
-                  Creative
+                <Link href="/disclaimer" className="hover:text-white">
+                  Disclaimer
                 </Link>
               </li>
             </ul>
           </motion.div>
 
           {/* Social */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-            <div className="flex gap-4">
-              {[Facebook, Twitter, Instagram, Linkedin, Github].map(
-                (Icon, i) => (
-                  <motion.a
-                    key={i}
-                    href="#"
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    className="p-2 bg-white/10 rounded-full backdrop-blur-md hover:bg-white/20 transition"
-                  >
-                    <Icon className="w-5 h-5" />
-                  </motion.a>
-                )
-              )}
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Divider */}
