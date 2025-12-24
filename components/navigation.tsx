@@ -112,6 +112,12 @@ export function Navigation() {
             >
               About
             </Link>
+            <Link
+              href="/blog"
+              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
+            >
+              Blog
+            </Link>
 
             {/* Tools Dropdown */}
             <div
@@ -173,13 +179,6 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Request Button */}
-          <div className="hidden lg:flex">
-            <Button className="rounded-xl shadow-md shadow-primary/30 bg-gradient-to-r from-primary to-accent text-white hover:scale-105 transition-transform duration-200 hover:shadow-xl">
-              Request Custom Tool
-            </Button>
-          </div>
-
           {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <Button
@@ -221,6 +220,12 @@ export function Navigation() {
           >
             About
           </Link>
+          <Link
+            href="/blog"
+            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            Blog
+          </Link>
 
           <details className="rounded-lg">
             <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
@@ -249,9 +254,6 @@ export function Navigation() {
           >
             Contact
           </Link>
-          <Button className="w-full mt-3 rounded-lg bg-gradient-to-r from-primary to-accent text-white shadow-md">
-            Request Custom Tool
-          </Button>
         </div>
       </div>
     </nav>
