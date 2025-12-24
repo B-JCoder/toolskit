@@ -82,6 +82,12 @@ const tools = [
   },
 ];
 
+const legalLinks = [
+  { name: "Privacy", href: "/privacy" },
+  { name: "Terms", href: "/terms" },
+  { name: "Disclaimer", href: "/disclaimer" },
+];
+
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -89,35 +95,20 @@ export function Navigation() {
   return (
     <nav className="sticky top-0 z-50 border-b border-white/10 bg-background/40 backdrop-blur-md shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
-            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-lg transition-all duration-300"
+            className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent drop-shadow-lg"
           >
             ToolFixo
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-8">
-            <Link
-              href="/"
-              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
-            >
-              About
-            </Link>
-            <Link
-              href="/blog"
-              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
-            >
-              Blog
-            </Link>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/about">About</NavLink>
+            <NavLink href="/blog">Blog</NavLink>
 
             {/* Tools Dropdown */}
             <div
@@ -125,70 +116,59 @@ export function Navigation() {
               onMouseEnter={() => setDropdownOpen(true)}
               onMouseLeave={() => setDropdownOpen(false)}
             >
-              <button className="flex items-center gap-1 hover:text-primary transition-colors font-medium hover:scale-105 duration-200">
-                Tools{" "}
+              <button className="flex items-center gap-1 font-medium hover:text-primary transition">
+                Tools
                 <ChevronDown
-                  className="h-4 w-4 transition-transform duration-300"
-                  style={{
-                    transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)",
-                  }}
+                  className={`h-4 w-4 transition-transform ${
+                    dropdownOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
 
-              {/* Animated Dropdown */}
               <div
-                className={`absolute top-6 left-0 w-[20rem] lg:w-[30rem] 
-                  bg-gradient-to-r from-primary to-accent 
-                  text-white shadow-2xl rounded-xl 
-                  border border-white/10 
-                  p-4 grid grid-cols-2 gap-3
-                  transition-all duration-300
-                  ${
-                    dropdownOpen
-                      ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-                      : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-                  }
-                `}
+                className={`absolute top-7 left-0 w-[30rem] rounded-xl bg-gradient-to-r from-primary to-accent 
+                p-4 grid grid-cols-2 gap-3 text-white shadow-2xl border border-white/10 transition-all duration-300
+                ${
+                  dropdownOpen
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95 pointer-events-none"
+                }`}
               >
-                {tools.map((tool) => {
-                  const Icon = tool.icon;
-                  return (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/20 transition-all duration-200 shadow hover:shadow-lg"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center shadow">
-                        <Icon className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <div className="font-medium">{tool.name}</div>
-                        <div className="text-xs opacity-80">{tool.desc}</div>
-                      </div>
-                    </Link>
-                  );
-                })}
+                {tools.map(({ name, href, icon: Icon, desc }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex gap-3 p-3 rounded-xl hover:bg-white/20 transition"
+                  >
+                    <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{name}</p>
+                      <p className="text-xs opacity-80">{desc}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
-            <Link
-              href="/contact"
-              className="hover:text-primary transition-colors font-medium hover:scale-105 duration-200"
-            >
-              Contact
-            </Link>
+            <NavLink href="/contact">Contact</NavLink>
+
+            {/* Legal Links */}
+            {legalLinks.map(({ name, href }) => (
+              <NavLink key={href} href={href}>
+                {name}
+              </NavLink>
+            ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <div className="lg:hidden">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
-              className="transition-all duration-200"
+              aria-label="Toggle menu"
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -201,61 +181,79 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         <div
-          id="mobile-menu"
-          className={`lg:hidden absolute left-0 right-0 top-16 space-y-2 bg-gradient-to-r from-primary to-accent text-white p-4 shadow-md border-t border-white/10 transition-all duration-300 ${
+          className={`lg:hidden absolute left-0 right-0 top-16 bg-gradient-to-r from-primary to-accent 
+          text-white p-4 space-y-2 shadow-md transition-all duration-300
+          ${
             isOpen
-              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-95 pointer-events-none"
           }`}
         >
-          <Link
-            href="/"
-            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-          >
-            About
-          </Link>
-          <Link
-            href="/blog"
-            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-          >
-            Blog
-          </Link>
+          <MobileLink href="/">Home</MobileLink>
+          <MobileLink href="/about">About</MobileLink>
+          <MobileLink href="/blog">Blog</MobileLink>
 
           <details className="rounded-lg">
-            <summary className="px-2 py-2 cursor-pointer hover:text-gray-200 transition-colors">
-              Tools
-            </summary>
-            <div className="pl-2 mt-2 space-y-2">
-              {tools.map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <Link
-                    key={tool.href}
-                    href={tool.href}
-                    className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-                  >
-                    <Icon className="h-4 w-4 text-white" />
-                    {tool.name}
-                  </Link>
-                );
-              })}
+            <summary className="cursor-pointer px-2 py-2">Tools</summary>
+            <div className="pl-3 space-y-2">
+              {tools.map(({ name, href, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/20"
+                >
+                  <Icon className="h-4 w-4" />
+                  {name}
+                </Link>
+              ))}
             </div>
           </details>
 
-          <Link
-            href="/contact"
-            className="block px-2 py-2 rounded-lg hover:bg-white/20 transition-colors"
-          >
-            Contact
-          </Link>
+          <MobileLink href="/contact">Contact</MobileLink>
+
+          {/* Legal Links Mobile */}
+          {legalLinks.map(({ name, href }) => (
+            <MobileLink key={href} href={href}>
+              {name}
+            </MobileLink>
+          ))}
         </div>
       </div>
     </nav>
+  );
+}
+
+/* Reusable Components */
+function NavLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="font-medium hover:text-primary transition hover:scale-105"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function MobileLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="block px-2 py-2 rounded-lg hover:bg-white/20 transition"
+    >
+      {children}
+    </Link>
   );
 }
