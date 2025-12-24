@@ -1,5 +1,6 @@
 async function getPosts() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WP_API}/posts`, {
+    cache: "no-store",
     next: { revalidate: 60 },
   });
 
