@@ -1,8 +1,13 @@
+export const dynamic = "force-dynamic";
+
 async function getPosts() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WP_API}/posts`, {
     cache: "no-store",
-    next: { revalidate: 60 },
   });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch posts");
+  }
 
   return res.json();
 }
