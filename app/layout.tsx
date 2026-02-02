@@ -7,6 +7,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Suspense } from "react";
+import Script from "next/script";
 
 // import Preloader from "@/components/Preloader"
 export const metadata: Metadata = {
@@ -67,7 +68,13 @@ export const metadata: Metadata = {
     description:
       "A comprehensive collection of handy web tools including calculators, generators, and utilities",
   },
-  generator: "v0.app",
+  generator: "BSH Solutions",
+  verification: {
+    google: "tuAS_SdU7pnZuwUBr0LQwfqP7Et_c_cVf39FkR8a0lo",
+  },
+  other: {
+    "google-adsense-account": "ca-pub-9884143098571130",
+  },
 };
 
 export default function RootLayout({
@@ -77,6 +84,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9884143098571130"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={`font-sans ${GeistSans.variable} ${GeistMono.variable} min-h-screen flex flex-col antialiased`}
       >
