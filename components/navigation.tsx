@@ -152,7 +152,7 @@ export function Navigation() {
               </div>
             </div>
 
-            <NavLink href="/contact">Contact</NavLink>
+            {/* <NavLink href="/contact">Contact</NavLink> */}
 
             {/* Legal Links */}
             {legalLinks.map(({ name, href }) => (
@@ -209,7 +209,7 @@ export function Navigation() {
             </div>
           </details>
 
-          <MobileLink href="/contact">Contact</MobileLink>
+          {/* <MobileLink href="/contact">Contact</MobileLink> */}
 
           {/* Legal Links Mobile */}
           {legalLinks.map(({ name, href }) => (
