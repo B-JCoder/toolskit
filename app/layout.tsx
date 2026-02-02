@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     google: "tuAS_SdU7pnZuwUBr0LQwfqP7Et_c_cVf39FkR8a0lo",
   },
   other: {
-    "google-adsense-account": "ca-pub-9884143098571130",
+    "google-adsense-account": "ca-pub-pub-9884143098571130",
   },
 };
 
