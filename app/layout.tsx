@@ -73,7 +73,10 @@ export const metadata: Metadata = {
     google: "tuAS_SdU7pnZuwUBr0LQwfqP7Et_c_cVf39FkR8a0lo",
   },
   other: {
-    "google-adsense-account": "ca-pub-pub-9884143098571130",
+    "google-adsense-account": [
+      "ca-pub-9884143098571130",
+      "ca-pub-8124334583827254",
+    ],
   },
 };
 
@@ -88,6 +91,12 @@ export default function RootLayout({
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9884143098571130"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8124334583827254"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
